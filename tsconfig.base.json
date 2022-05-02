@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@nx-enterprise/nx-php": ["packages/nx-php/src/index.ts"],
       "@nx-enterprise/nx-python": ["packages/nx-python/src/index.ts"]
     }
   },
