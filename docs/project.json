@@ -1,7 +1,7 @@
 {
-  "root": "apps/docs",
+  "root": "docs",
   "projectType": "application",
-  "sourceRoot": "apps/docs/src",
+  "sourceRoot": "docs/src",
   "targets": {
     "build": {
       "executor": "@nx-plus/docusaurus:browser",

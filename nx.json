@@ -13,6 +13,10 @@
       }
     }
   },
+  "workspaceLayout": {
+    "appsDir": "e2e",
+    "libsDir": "packages"
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }

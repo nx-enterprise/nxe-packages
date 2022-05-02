@@ -1,13 +1,13 @@
 {
-  "root": "apps/nx-php-e2e",
+  "root": "e2e/nx-php-e2e",
   "projectType": "application",
-  "sourceRoot": "apps/nx-php-e2e/src",
+  "sourceRoot": "e2e/nx-php-e2e/src",
   "targets": {
     "e2e": {
       "executor": "@nrwl/nx-plugin:e2e",
       "options": {
         "target": "nx-php:build",
-        "jestConfig": "apps/nx-php-e2e/jest.config.ts"
+        "jestConfig": "e2e/nx-php-e2e/jest.config.ts"
       }
     }
   },
