@@ -1,42 +1,138 @@
 import {
   checkFilesExist,
   ensureNxProject,
+  readFile,
   readJson,
   runNxCommandAsync,
+  tmpProjPath,
   uniq,
+  updateFile,
 } from '@nrwl/nx-plugin/testing';
-describe('nx-php e2e', () => {
-  it('should create nx-php', async () => {
-    const plugin = uniq('nx-php');
-    ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
-    await runNxCommandAsync(`generate @nx-enterprise/nx-php:nx-php ${plugin}`);
+import { unlinkSync } from 'fs';
+import { join } from 'path';
+import { replaceFolder } from '../utils/folder';
 
-    const result = await runNxCommandAsync(`build ${plugin}`);
-    expect(result.stdout).toContain('Executor ran');
-  }, 120000);
+describe('application e2e', () => {
+  it('should create application', async () => {
+    const appName = uniq('app');
+    const libName = uniq('lib');
+    ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
+    await runNxCommandAsync(
+      `generate @nx-enterprise/nx-php:application ${appName}`
+    );
+
+    expect(() => checkFilesExist(`apps/${appName}/index.php`)).not.toThrow();
+    expect(() => checkFilesExist(`go.mod`)).not.toThrow();
+    expect(readFile(`composer.json`)).toContain('require');
+
+    const resultBuild = await runNxCommandAsync(`install ${appName}`);
+    expect(resultBuild.stdout).toContain(`Executing command:  build`);
+
+    const resultLint = await runNxCommandAsync(`lint ${appName}`);
+    expect(resultLint.stdout).toContain(`Executing command: go fmt ./...`);
+
+    const resultServe = await runNxCommandAsync(`serve ${appName}`);
+    expect(resultServe.stdout).toContain(`Executing command: go run main.go`);
+
+    const resultTest = await runNxCommandAsync(`test ${appName}`);
+    expect(resultTest.stdout).toContain(
+      `Executing command: go test -v ./... -cover -race`
+    );
+
+    const resultTestSkip = await runNxCommandAsync(
+      `test ${appName} --skip-cover --skip-race`
+    );
+    expect(resultTestSkip.stdout).toContain(
+      `Executing command: go test -v ./...`
+    );
+    expect(resultTestSkip.stdout).not.toContain(` -cover -race `);
+
+    await runNxCommandAsync(
+      `generate @nx-enterprise/nx-php:library ${libName} --directory=${appName}`
+    );
+    expect(() =>
+      checkFilesExist(`libs/${appName}/${libName}/${appName}-${libName}.go`)
+    ).not.toThrow();
+    expect(
+      readFile(`libs/${appName}/${libName}/${appName}-${libName}.go`)
+    ).toContain(`package ${appName}_${libName}`);
+  });
 
   describe('--directory', () => {
-    it('should create src in the specified directory', async () => {
+    it('should create main.go in the specified directory', async () => {
       const plugin = uniq('nx-php');
       ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-php:nx-php ${plugin} --directory subdir`
+        `generate @nx-enterprise/nx-php:application ${plugin} --directory subdir`
       );
       expect(() =>
-        checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
+        checkFilesExist(`apps/subdir/${plugin}/main.go`)
       ).not.toThrow();
-    }, 120000);
+    });
   });
 
   describe('--tags', () => {
-    it('should add tags to the project', async () => {
+    it('should add tags to nx.json', async () => {
       const plugin = uniq('nx-php');
       ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-php:nx-php ${plugin} --tags e2etag,e2ePackage`
+        `generate @nx-enterprise/nx-php:application ${plugin} --tags e2etag,e2ePackage`
       );
-      const project = readJson(`libs/${plugin}/project.json`);
-      expect(project.tags).toEqual(['e2etag', 'e2ePackage']);
-    }, 120000);
+      const projectJson = readJson(`apps/${plugin}/project.json`);
+      expect(projectJson.tags).toEqual(['e2etag', 'e2ePackage']);
+    });
+  });
+});
+
+describe('go-package-graph', () => {
+  it('should work with affected commands', async () => {
+    const appName = uniq('app');
+    const libName = uniq('lib');
+    ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
+    // Need to copy the plugin as linking it throws:
+    // 'Couldn't find a package.json for Nx plugin:@nx-enterprise/nx-php'
+    unlinkSync(tmpProjPath('node_modules/@nx-enterprise/nx-php'));
+    replaceFolder(
+      join(__dirname, '../../../dist/packages/nx-php'),
+      tmpProjPath('node_modules/@nx-enterprise/nx-php')
+    );
+
+    await runNxCommandAsync(
+      `generate @nx-enterprise/nx-php:application ${appName}`
+    );
+    await runNxCommandAsync(
+      `generate @nx-enterprise/nx-php:library ${libName}`
+    );
+    await runNxCommandAsync(
+      `generate @nx-enterprise/nx-php:setup-nx-php-plugin`
+    );
+
+    const captilizedLibName = libName[0].toUpperCase() + libName.substring(1);
+
+    updateFile(
+      join('apps', appName, 'main.go'),
+      `package main
+
+      import (
+        "fmt"
+
+        "proj/libs/${libName}"
+      )
+
+      func main() {
+        fmt.Println(${libName}.${captilizedLibName}("${appName}"))
+      }`
+    );
+
+    await runNxCommandAsync('dep-graph --file=output.json');
+
+    const { graph } = readJson('output.json');
+    expect(graph).toBeDefined();
+    expect(graph.dependencies).toBeDefined();
+    expect(graph.dependencies[appName]).toBeDefined();
+
+    const appDependencies = graph.dependencies[appName];
+    expect(appDependencies.length).toBe(1);
+    expect(appDependencies[0].target).toBe(libName);
   });
 });

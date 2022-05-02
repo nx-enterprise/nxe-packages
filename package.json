@@ -11,6 +11,8 @@
     "npm.publish.nx-ddd-architecture": "npm publish ./dist/packages/nx-ddd-architecture/ --access=public",
     "npm.publish.nx-php": "npm publish ./dist/packages/nx-php/ --access=public",
     "npm.publish.nx-python": "npm publish ./dist/packages/nx-python/ --access=public",
+    "install.php.composer": "chmod +x ./.config/util/install-php-composer.sh && ./.config/util/install-php-composer.sh",
+    "util.dapr.php.composer.init": "dapr run -a dev -p 3000 -- php bin/composer init",
     "prepare": "husky install",
     "release.major": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=major",
     "release.minor": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=minor",

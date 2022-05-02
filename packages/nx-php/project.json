@@ -2,6 +2,21 @@
   "root": "packages/nx-php",
   "sourceRoot": "packages/nx-php/src",
   "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/nx-php/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-php"],
+      "options": {
+        "jestConfig": "packages/nx-php/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
@@ -30,23 +45,13 @@
             "input": "./packages/nx-php",
             "glob": "executors.json",
             "output": "."
+          },
+          {
+            "input": "./packages/nx-php",
+            "glob": "migrations.json",
+            "output": "."
           }
         ]
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/nx-php/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/nx-php"],
-      "options": {
-        "jestConfig": "packages/nx-php/jest.config.ts",
-        "passWithNoTests": true
       }
     }
   },

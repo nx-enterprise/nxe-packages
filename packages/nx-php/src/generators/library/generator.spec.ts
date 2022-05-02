@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import generator from './generator';
-import { NxPhpGeneratorSchema } from './schema';
+import { LibraryGeneratorSchema } from './schema';
 
-describe('nx-php generator', () => {
+describe('library generator', () => {
   let appTree: Tree;
-  const options: NxPhpGeneratorSchema = { name: 'test' };
+  const options: LibraryGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
