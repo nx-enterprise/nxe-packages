@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "docs": "apps/docs",
+    "nx-php": "packages/nx-php",
+    "nx-php-e2e": "apps/nx-php-e2e",
     "nx-python": "packages/nx-python",
     "nx-python-e2e": "apps/nx-python-e2e"
   }
