@@ -45,3 +45,7 @@ Thumbs.db
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Generated Docusaurus files
+.docusaurus/
+.cache-loader/
