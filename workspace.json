@@ -4,6 +4,8 @@
     "docs": "apps/docs",
     "nx-dapr": "packages/nx-dapr",
     "nx-dapr-e2e": "apps/nx-dapr-e2e",
+    "nx-ddd-architecture": "packages/nx-ddd-architecture",
+    "nx-ddd-architecture-e2e": "apps/nx-ddd-architecture-e2e",
     "nx-php": "packages/nx-php",
     "nx-php-e2e": "apps/nx-php-e2e",
     "nx-python": "packages/nx-python",
