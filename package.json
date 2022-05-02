@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
-    "release.major": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --releaseAs=major",
-    "release.minor": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --releaseAs=minor",
-    "release.patch": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --releaseAs=patch"
+    "release.major": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=major",
+    "release.minor": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=minor",
+    "release.patch": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=patch"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.13",
