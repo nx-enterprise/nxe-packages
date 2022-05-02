@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@nx-enterprise/nx-dapr": ["packages/nx-dapr/src/index.ts"],
+      "@nx-enterprise/nx-ddd-architecture": [
+        "packages/nx-ddd-architecture/src/index.ts"
+      ],
       "@nx-enterprise/nx-php": ["packages/nx-php/src/index.ts"],
       "@nx-enterprise/nx-python": ["packages/nx-python/src/index.ts"]
     }

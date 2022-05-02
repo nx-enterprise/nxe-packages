@@ -1,0 +1,54 @@
+{
+  "root": "packages/nx-ddd-architecture",
+  "sourceRoot": "packages/nx-ddd-architecture/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-ddd-architecture",
+        "main": "packages/nx-ddd-architecture/src/index.ts",
+        "tsConfig": "packages/nx-ddd-architecture/tsconfig.lib.json",
+        "assets": [
+          "packages/nx-ddd-architecture/*.md",
+          {
+            "input": "./packages/nx-ddd-architecture/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-ddd-architecture/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-ddd-architecture",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-ddd-architecture",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/nx-ddd-architecture/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-ddd-architecture"],
+      "options": {
+        "jestConfig": "packages/nx-ddd-architecture/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
