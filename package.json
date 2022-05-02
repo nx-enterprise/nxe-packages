@@ -6,6 +6,11 @@
   "scripts": {
     "contributors.add": "all-contributors add",
     "contributors.generate": "all-contributors generate",
+    "npm.publish": "nx run-many --target=build --all --parallel=3 && npx concurrently 'npm:npm.publish.*'",
+    "npm.publish.nx-dapr": "npm publish ./dist/packages/nx-dapr/ --access=public",
+    "npm.publish.nx-ddd-architecture": "npm publish ./dist/packages/nx-ddd-architecture/ --access=public",
+    "npm.publish.nx-php": "npm publish ./dist/packages/nx-php/ --access=public",
+    "npm.publish.nx-python": "npm publish ./dist/packages/nx-python/ --access=public",
     "prepare": "husky install",
     "release.major": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=major",
     "release.minor": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=minor",
@@ -13,8 +18,8 @@
     "sort-package-json": "npx sort-package-json"
   },
   "resolutions": {
-    "rxjs": "7.5.5",
-    "file-saver": "2.0.5"
+    "file-saver": "2.0.5",
+    "rxjs": "7.5.5"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.13",
@@ -82,10 +87,10 @@
     "typescript": "~4.3.5",
     "webpack": "^5.72.0"
   },
+  "packageManager": "yarn@3.2.0",
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=8.0.0",
     "yarn": ">=1.22.0"
-  },
-  "packageManager": "yarn@3.2.0"
+  }
 }
