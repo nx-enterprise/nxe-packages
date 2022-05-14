@@ -3,10 +3,22 @@
   "name": "nx-php",
   "version": "0.0.1",
   "generators": {
-    "nx-php": {
-      "factory": "./src/generators/nx-php/generator",
-      "schema": "./src/generators/nx-php/schema.json",
-      "description": "nx-php generator"
+    "application": {
+      "aliases": ["app"],
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "library": {
+      "aliases": ["lib"],
+      "factory": "./src/generators/library/generator",
+      "schema": "./src/generators/library/schema.json",
+      "description": "library generator"
+    },
+    "setup-nx-php-plugin": {
+      "factory": "./src/generators/setup-nx-php-plugin/generator",
+      "schema": "./src/generators/setup-nx-php-plugin/schema.json",
+      "description": "Adds nx-php as dependency graph plugin"
     }
   }
 }

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Serve executor",
+  "description": "Run the PHP application",
+  "type": "object",
+  "properties": {
+    "cmd": {
+      "type": "string",
+      "description": "Name of the php binary (usually 'php')",
+      "default": "php"
+    },
+    "cwd": {
+      "type": "string",
+      "description": "Working directory from which to run the application",
+      "default": ""
+    },
+    "index": {
+      "type": "string",
+      "description": "Name of the file containing the main() function",
+      "default": "index.php"
+    },
+    "arguments": {
+      "description": "Command line arguments for the application",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "required": []
+}
