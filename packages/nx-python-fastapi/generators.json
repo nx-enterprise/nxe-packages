@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-python-fastapi",
+  "version": "0.0.1",
+  "generators": {
+    "nx-python-fastapi": {
+      "factory": "./src/generators/nx-python-fastapi/generator",
+      "schema": "./src/generators/nx-python-fastapi/schema.json",
+      "description": "nx-python-fastapi generator"
+    }
+  }
+}
