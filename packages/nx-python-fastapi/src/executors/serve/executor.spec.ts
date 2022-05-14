@@ -1,7 +1,10 @@
-import { BuildExecutorSchema } from './schema';
+import { DevServerExecutorSchema } from './schema';
 import executor from './executor';
 
-const options: BuildExecutorSchema = {};
+const options: DevServerExecutorSchema = {
+  host: 'localhost',
+  port: 3000,
+};
 
 describe('Build Executor', () => {
   it('can run', async () => {

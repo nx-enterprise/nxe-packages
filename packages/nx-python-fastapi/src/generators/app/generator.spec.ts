@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import generator from './generator';
-import { NxPythonFastapiGeneratorSchema } from './schema';
+import { AppGeneratorSchema } from './schema';
 
-describe('nx-python-fastapi generator', () => {
+describe('fastapi generator', () => {
   let appTree: Tree;
-  const options: NxPythonFastapiGeneratorSchema = { name: 'test' };
+  const options: AppGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
