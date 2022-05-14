@@ -3,10 +3,16 @@
   "name": "nx-python",
   "version": "0.0.1",
   "generators": {
-    "nx-python": {
+    "nx-python-old-remove-this": {
       "factory": "./src/generators/nx-python/generator",
       "schema": "./src/generators/nx-python/schema.json",
       "description": "nx-python generator"
+    },
+    "nx-python": {
+      "aliases": ["app"],
+      "factory": "./src/schematics/nx-python/schematic",
+      "schema": "./src/schematics/nx-python/schema.json",
+      "description": "Creates a new Python Application"
     }
   }
 }

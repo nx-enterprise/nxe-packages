@@ -1,0 +1,54 @@
+{
+  "root": "packages/nx-python",
+  "sourceRoot": "packages/nx-python/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:lint",
+      "options": {
+        "linter": "eslint",
+        "tsConfig": [
+          "packages/nx-python/tsconfig.lib.json",
+          "packages/nx-python/tsconfig.spec.json"
+        ],
+        "exclude": ["**/node_modules/**", "!packages/nx-python/**/*"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/nx-python/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/nx-python",
+        "tsConfig": "packages/nx-python/tsconfig.lib.json",
+        "packageJson": "packages/nx-python/package.json",
+        "main": "packages/nx-python/src/index.ts",
+        "assets": [
+          "packages/nx-python/*.md",
+          {
+            "input": "./packages/nx-python/src",
+            "glob": "**/*.!(ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-python",
+            "glob": "collection.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-python",
+            "glob": "builders.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}
