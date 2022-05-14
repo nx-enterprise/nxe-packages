@@ -102,17 +102,17 @@ export default async function (host: Tree, options: AppGeneratorSchema) {
     sourceRoot: joinPathFragments(projectRoot, 'src'),
     targets: {
       serve: {
-        executor: 'nx-python-fastapi:serve',
+        executor: '@nx-enterprise/nx-python-fastapi:serve',
       },
       test: {
-        executor: 'nx-python-fastapi:test',
+        executor: '@nx-enterprise/nx-python-fastapi:test',
         outputs: [joinPathFragments('coverage', projectRoot)],
       },
       lint: {
-        executor: 'nx-python-fastapi:lint',
+        executor: '@nx-enterprise/nx-python-fastapi:lint',
       },
       format: {
-        executor: 'nx-python-fastapi:format',
+        executor: '@nx-enterprise/nx-python-fastapi:format',
       },
     },
     tags: normalizedOptions.parsedTags,
