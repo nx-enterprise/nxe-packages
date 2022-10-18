@@ -1,5 +1,5 @@
 {
-  "root": "packages/nx-ddd-architecture",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-ddd-architecture/src",
   "targets": {
     "build": {
@@ -43,7 +43,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/nx-ddd-architecture"],
+      "outputs": ["{workspaceRoot}/coverage/packages/nx-ddd-architecture"],
       "options": {
         "jestConfig": "packages/nx-ddd-architecture/jest.config.ts",
         "passWithNoTests": true

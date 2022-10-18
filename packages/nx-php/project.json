@@ -1,5 +1,5 @@
 {
-  "root": "packages/nx-php",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-php/src",
   "targets": {
     "build": {
@@ -43,7 +43,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/nx-php"],
+      "outputs": ["{workspaceRoot}/coverage/packages/nx-php"],
       "options": {
         "jestConfig": "packages/nx-php/jest.config.ts",
         "passWithNoTests": true

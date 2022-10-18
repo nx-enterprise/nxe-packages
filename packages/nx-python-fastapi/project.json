@@ -44,7 +44,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/nx-python-fastapi"],
+      "outputs": ["{workspaceRoot}/coverage/packages/nx-python-fastapi"],
       "options": {
         "jestConfig": "packages/nx-python-fastapi/jest.config.ts",
         "passWithNoTests": true

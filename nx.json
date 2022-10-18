@@ -1,5 +1,5 @@
 {
-  "extends": "@nrwl/workspace/presets/npm.json",
+  "extends": "nx/presets/npm.json",
   "npmScope": "nx-enterprise",
   "affected": {
     "defaultBase": "main"
@@ -9,7 +9,8 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZDA2NDgxY2MtNGIwMi00NDlhLWE2YjktYTg1YmQ2NTc4ZGQzfHJlYWQtd3JpdGU="
+        "accessToken": "ZDA2NDgxY2MtNGIwMi00NDlhLWE2YjktYTg1YmQ2NTc4ZGQzfHJlYWQtd3JpdGU=",
+        "parallel": 3
       }
     }
   },
@@ -17,7 +18,18 @@
     "appsDir": "e2e",
     "libsDir": "packages"
   },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": true
+    }
+  },
+  "targetDefaults": {
+    "test": {
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    }
   }
 }
