@@ -1,16 +1,16 @@
 # Nx Enterprise
 
 ## Why? ... from the Maintainer
-My company (Snyder Tech)[https://snyder.tech] has standardized most of its new projects to combine the following tech:
-- Nrwl's (Nx)[https://nx.dev]
-- (Nx Cloud)[https://nx.app/]
-- (AgentEnder)[https://github.com/AgentEnder]'s excellent (@nx-dotnet)[https://www.nx-dotnet.com/]
+My company [Snyder Tech](https://snyder.tech) has standardized most of its new projects to combine the following tech:
+- Nrwl's [Nx](https://nx.dev)
+- [Nx Cloud](https://nx.app/)
+- [AgentEnder](https://github.com/AgentEnder)'s excellent [@nx-dotnet](https://www.nx-dotnet.com/)
 - Angular + React Frontends, with NestJS/NodeJS backends
-- (Dapr)[https://dapr.io/]
-- Kubernetes via (K3s)[https://k3s.io/]
-- VS Code (devcontainer)[https://code.visualstudio.com/docs/devcontainers/containers]
-- (Docker)[https://www.docker.com/]
-- Amazing CLI tooling via ZSH + (Oh-My-Zsh)[https://ohmyz.sh/]
+- [Dapr](https://dapr.io/)
+- Kubernetes via [K3s](https://k3s.io/)
+)
+- [Docker](https://www.docker.com/)
+- Amazing CLI tooling via ZSH + [Oh-My-Zsh](https://ohmyz.sh/)
 
 This repo brings it all together, with almost as much effort as a click of a button! This is an excellent way to get started learning micro-services and kubernetes -- which is difficult for most developers at every stage of their modernizaiton journey.
 
