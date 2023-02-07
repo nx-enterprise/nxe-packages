@@ -14,7 +14,7 @@ services:
     env_file:
       - .env # load the rest of your environment variables
   kitchen-sink:
-    image: nx-enterprise/nxe-devcontainer:kitchek-sink
+    image: nx-enterprise/nxe-devcontainer:kitchen-sink
     build:
       context: .
       dockerfile: containers/Dockerfile.kitchen-sink
