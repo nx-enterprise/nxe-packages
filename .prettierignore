@@ -1,2 +1,7 @@
 .prettierignore
 .docusaurus/
+
+/dist
+/coverage
+
+pnpm-lock.yaml

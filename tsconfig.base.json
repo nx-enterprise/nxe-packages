@@ -1,30 +1,27 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
+    "baseUrl": ".",
     "declaration": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
     "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
     "paths": {
-      "@nx-enterprise/nx-dapr": ["packages/nx-dapr/src/index.ts"],
-      "@nx-enterprise/nx-ddd-architecture": [
-        "packages/nx-ddd-architecture/src/index.ts"
-      ],
-      "@nx-enterprise/nx-php": ["packages/nx-php/src/index.ts"],
-      "@nx-enterprise/nx-python": ["packages/nx-python/src/index.ts"],
-      "@nx-enterprise/nx-python-fastapi": [
-        "packages/nx-python-fastapi/src/index.ts"
-      ]
-    }
+      "@nx-enterprise/nxe-dapr": ["packages/nxe-dapr/src/index.ts"],
+      "@nx-enterprise/nxe-ddd-architecture": ["packages/nxe-ddd-architecture/src/index.ts"],
+      "@nx-enterprise/nxe-php": ["packages/nxe-php/src/index.ts"],
+      "@nx-enterprise/nxe-python": ["packages/nxe-python/src/index.ts"],
+      "@nx-enterprise/nxe-python-fastapi": ["packages/nxe-python-fastapi/src/index.ts"],
+      "@nx-enterprise/nxe-devcontainer": ["packages/nxe-devcontainer/src/index.ts"]
+    },
+    "rootDir": ".",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es2015"
   },
   "exclude": ["node_modules", "tmp"]
 }

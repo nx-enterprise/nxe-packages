@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'nx-ddd-architecture-e2e',
+  displayName: 'nxe-ddd-architecture-e2e',
   preset: '../../jest.preset.ts',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/e2e/nx-ddd-architecture-e2e',
+  coverageDirectory: '../../coverage/e2e/nxe-ddd-architecture-e2e',
 };

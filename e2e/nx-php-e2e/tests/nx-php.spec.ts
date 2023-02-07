@@ -5,11 +5,11 @@ import {
   runNxCommandAsync,
   uniq,
 } from '@nrwl/nx-plugin/testing';
-describe('nx-php e2e', () => {
-  it('should create nx-php', async () => {
-    const plugin = uniq('nx-php');
-    ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
-    await runNxCommandAsync(`generate @nx-enterprise/nx-php:nx-php ${plugin}`);
+describe('nxe-php e2e', () => {
+  it('should create nxe-php', async () => {
+    const plugin = uniq('nxe-php');
+    ensureNxProject('@nx-enterprise/nxe-php', 'dist/packages/nxe-php');
+    await runNxCommandAsync(`generate @nx-enterprise/nxe-php:nxe-php ${plugin}`);
 
     const result = await runNxCommandAsync(`build ${plugin}`);
     expect(result.stdout).toContain('Executor ran');
@@ -17,10 +17,10 @@ describe('nx-php e2e', () => {
 
   describe('--directory', () => {
     it('should create src in the specified directory', async () => {
-      const plugin = uniq('nx-php');
-      ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
+      const plugin = uniq('nxe-php');
+      ensureNxProject('@nx-enterprise/nxe-php', 'dist/packages/nxe-php');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-php:nx-php ${plugin} --directory subdir`
+        `generate @nx-enterprise/nxe-php:nxe-php ${plugin} --directory subdir`
       );
       expect(() =>
         checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
@@ -30,10 +30,10 @@ describe('nx-php e2e', () => {
 
   describe('--tags', () => {
     it('should add tags to the project', async () => {
-      const plugin = uniq('nx-php');
-      ensureNxProject('@nx-enterprise/nx-php', 'dist/packages/nx-php');
+      const plugin = uniq('nxe-php');
+      ensureNxProject('@nx-enterprise/nxe-php', 'dist/packages/nxe-php');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-php:nx-php ${plugin} --tags e2etag,e2ePackage`
+        `generate @nx-enterprise/nxe-php:nxe-php ${plugin} --tags e2etag,e2ePackage`
       );
       const project = readJson(`libs/${plugin}/project.json`);
       expect(project.tags).toEqual(['e2etag', 'e2ePackage']);

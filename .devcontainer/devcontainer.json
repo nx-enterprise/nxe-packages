@@ -1,0 +1,59 @@
+{
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "hangxingliu.vscode-nginx-conf-hint",
+        "raynigon.nginx-formatter",
+        "miclo.sort-typescript-imports",
+        "visualstudioexptteam.vscodeintellicode",
+        "vivaxy.vscode-conventional-commits",
+        "waderyan.gitblame",
+        "pflannery.vscode-versionlens",
+        "nrwl.angular-console",
+        "editorconfig.editorconfig",
+        "emeraldwalk.runonsave",
+        "esbenp.prettier-vscode",
+        "ahmadalli.vscode-nginx-conf",
+        "angular.ng-template",
+        "attilabuti.vscode-mjml",
+        "christian-kohler.path-intellisense",
+        "dbaeumer.vscode-eslint",
+        "oderwat.indent-rainbow",
+        "zxh404.vscode-proto3"
+      ]
+    }
+  },
+  "dockerComposeFile": [
+    "docker-compose.yml",
+    "../packages/nxe-devcontainer/src/lib/docker-compose.nxe.yml"
+  ],
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/bash-command:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "enableNonRootDocker": "true",
+      "moby": "true",
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/nix:1": { "version": "latest" }
+  },
+  "forwardPorts": [],
+  "name": "nxe-apps",
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Ensure Dapr is running on opening the container
+  "postCreateCommand": "zsh .devcontainer/postCreateCommand.zsh",
+  "postStartCommand": "zsh .devcontainer/postStartCommand.zsh",
+
+  // Use this environment variable if you need to bind mount your local source code into a new container.
+  "remoteEnv": {
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+
+  // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode",
+  "service": "apps",
+  "workspaceFolder": "/nxe-apps"
+}

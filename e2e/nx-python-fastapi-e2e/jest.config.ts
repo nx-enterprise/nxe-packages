@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'nx-python-fastapi-e2e',
+  displayName: 'nxe-python-fastapi-e2e',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/e2e/nx-python-fastapi-e2e',
+  coverageDirectory: '../../coverage/e2e/nxe-python-fastapi-e2e',
 };

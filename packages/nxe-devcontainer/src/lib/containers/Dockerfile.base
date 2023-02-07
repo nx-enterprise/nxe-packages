@@ -1,0 +1,21 @@
+ARG VARIANT=0.203.2-ubuntu-22.04
+FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
+
+ARG NXE_SCRIPTS
+ARG NXE_SHELL
+
+# Load up
+WORKDIR /
+RUN mkdir -p $NXE_SCRIPTS
+RUN mkdir -p $NXE_SHELL
+COPY scripts/* $NXE_SCRIPTS
+COPY shell/* $NXE_SHELL
+
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh # git configuration
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-pnpm.sh       # install pnpm
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh    # cleanup
+
+# Setting the ENTRYPOINT to docker-init.sh will configure non-root access
+# to the Docker socket. The script will also execute CMD as needed.
+ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+CMD [ "sleep", "infinity" ]

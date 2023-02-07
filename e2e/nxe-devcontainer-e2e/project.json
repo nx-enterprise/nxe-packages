@@ -1,0 +1,17 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["nxe-devcontainer"],
+  "name": "nxe-devcontainer-e2e",
+  "projectType": "application",
+  "sourceRoot": "e2e/nxe-devcontainer-e2e/src",
+  "tags": [],
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/nx-plugin:e2e",
+      "options": {
+        "jestConfig": "e2e/nxe-devcontainer-e2e/jest.config.ts",
+        "target": "nxe-devcontainer:build"
+      }
+    }
+  }
+}

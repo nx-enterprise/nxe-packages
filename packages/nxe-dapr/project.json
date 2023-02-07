@@ -1,0 +1,55 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "nxe-dapr",
+  "sourceRoot": "packages/nxe-dapr/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "assets": [
+          "packages/nxe-dapr/*.md",
+          {
+            "glob": "**/!(*.ts)",
+            "input": "./packages/nxe-dapr/src",
+            "output": "./src"
+          },
+          {
+            "glob": "**/*.d.ts",
+            "input": "./packages/nxe-dapr/src",
+            "output": "./src"
+          },
+          {
+            "glob": "generators.json",
+            "input": "./packages/nxe-dapr",
+            "output": "."
+          },
+          {
+            "glob": "executors.json",
+            "input": "./packages/nxe-dapr",
+            "output": "."
+          }
+        ],
+        "main": "packages/nxe-dapr/src/index.ts",
+        "outputPath": "dist/packages/nxe-dapr",
+        "tsConfig": "packages/nxe-dapr/tsconfig.lib.json"
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nxe-dapr/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/nxe-dapr/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/packages/nxe-dapr"]
+    }
+  }
+}

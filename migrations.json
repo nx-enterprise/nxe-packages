@@ -1,0 +1,12 @@
+{
+  "migrations": [
+    {
+      "version": "1.18.1-beta.0",
+      "description": "Adds build intermediates to Nx outputs arrays s.t. nx cloud is more effective.",
+      "cli": "nx",
+      "implementation": "./src/migrations/update-1.18.1/add-intermediate-outputs",
+      "package": "@nx-dotnet/core",
+      "name": "update-1.18.1-add-outputs"
+    }
+  ]
+}

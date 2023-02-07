@@ -1,0 +1,131 @@
+version: '3.9'
+services:
+  apps:
+    build:
+      context: .
+      dockerfile: Dockerfile # by default, extend the base image
+    environment:
+      DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
+    env_file:
+      - ../.env # from the context of <workspace>/.devcontainer
+    init: true
+    ulimits: # nx daemon likes to crawl a lot of files
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    volumes:
+      - ..:/nxe-apps:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
+      # Forwards the local Docker socket to the container.
+      - /var/run/docker.sock:/var/run/docker-host.sock
+      - nxe-config:${NXE_WS_DEVCONTAINER}/persist # configuration we want to persist
+      - nxe-cache-node:${NXE_WS}/node_modules # node modules
+      - nxe-cache-angular:${NXE_WS}/.angular # angular build cache
+      - nxe-cache-dist:${NXE_WS}/dist # app build output
+      - nxe-cache-bin:${NXE_WS}/bin # binaries we downlaoded in our workspace
+
+    # Overrides default command so things don't shut down after the process ends.
+    entrypoint: /usr/local/share/docker-init.sh
+    command: sleep infinity
+
+    # Uncomment the next four lines if you will use a ptrace-based debuggers like C++, Go, and Rust.
+    # cap_add:
+    #  - SYS_PTRACE
+    # security_opt:
+    #   - seccomp:unconfined
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+    # extra_hosts:
+    #   - 'subdomain.domain:192.168.0.20'
+  nxe-apps-dapr-placement:
+    image: 'daprio/dapr'
+    command: ['./placement', '-port', '50006']
+    ports:
+      - '50006:50006'
+  nxe-apps-dapr-redis:
+    image: 'redis:alpine'
+    ports:
+      - '6380:6379'
+  nxe-apps-dapr-zipkin:
+    image: 'openzipkin/zipkin'
+    ports:
+      - '9411:9411'
+  nxe-k3s-server:
+    image: 'rancher/k3s:${K3S_VERSION:-latest}'
+    command: server
+    tmpfs:
+      - /run
+      - /var/run
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
+    restart: always
+    env_file:
+      - ../.env # from the context of <workspace>/.devcontainer
+    environment:
+      - K3S_VERSION=${NXE_K3S_VERSION}
+      - K3S_TOKEN=${NXE_K3S_TOKEN}
+      - K3S_KUBECONFIG_OUTPUT=${NXE_K3S_OUT}/kubeconfig.yaml
+      - K3S_KUBECONFIG_MODE=666
+    volumes:
+      - nxe-k3s-data:/var/lib/rancher/k3s
+      # This is just so that we get the kubeconfig file out
+      - nxe-config:${NXE_K3S_OUT}
+    ports:
+      - 6443:6443 # Kubernetes API Server
+      - 80:80 # Ingress controller port 80
+      - 443:443 # Ingress controller port 443
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 1024M
+        reservations:
+          cpus: '0.50'
+          memory: 256M
+
+  nxe-k3s-agent:
+    image: 'rancher/k3s:${K3S_VERSION:-latest}'
+    tmpfs:
+      - /run
+      - /var/run
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
+    restart: always
+    env_file:
+      - ../.env # from the context of <workspace>/.devcontainer
+    environment:
+      - K3S_VERSION=${NXE_K3S_VERSION}
+      - K3S_URL=https://nxe-k3s-server:6443
+      - K3S_TOKEN=${NXE_K3S_TOKEN}
+    deploy:
+      mode: replicated
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 1536M
+        reservations:
+          cpus: '0.50'
+          memory: 256M
+
+networks:
+  default:
+    name: ${NXE_NETWORK}
+
+volumes:
+  nxe-config:
+  nxe-cache-angular:
+  nxe-cache-dist:
+  nxe-cache-node:
+  nxe-cache-bin:
+  nxe-k3s-data: {}

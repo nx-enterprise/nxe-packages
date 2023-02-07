@@ -1,16 +1,17 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["nxe-python-fastapi"],
+  "name": "nxe-python-fastapi-e2e",
   "projectType": "application",
-  "sourceRoot": "e2e/nx-python-fastapi-e2e/src",
+  "sourceRoot": "e2e/nxe-python-fastapi-e2e/src",
+  "tags": [],
   "targets": {
     "e2e": {
       "executor": "@nrwl/nx-plugin:e2e",
       "options": {
-        "target": "nx-python-fastapi:build",
-        "jestConfig": "e2e/nx-python-fastapi-e2e/jest.config.ts"
+        "jestConfig": "e2e/nxe-python-fastapi-e2e/jest.config.ts",
+        "target": "nxe-python-fastapi:build"
       }
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["nx-python-fastapi"]
+  }
 }

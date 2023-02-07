@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'nx-php-e2e',
+  displayName: 'nxe-php-e2e',
   preset: '../../jest.preset.ts',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/e2e/nx-php-e2e',
+  coverageDirectory: '../../coverage/e2e/nxe-php-e2e',
 };

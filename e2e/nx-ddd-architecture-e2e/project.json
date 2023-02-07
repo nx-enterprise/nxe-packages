@@ -1,16 +1,17 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["nxe-ddd-architecture"],
+  "name": "nxe-ddd-architecture-e2e",
   "projectType": "application",
-  "sourceRoot": "e2e/nx-ddd-architecture-e2e/src",
+  "sourceRoot": "e2e/nxe-ddd-architecture-e2e/src",
+  "tags": [],
   "targets": {
     "e2e": {
       "executor": "@nrwl/nx-plugin:e2e",
       "options": {
-        "target": "nx-ddd-architecture:build",
-        "jestConfig": "e2e/nx-ddd-architecture-e2e/jest.config.ts"
+        "jestConfig": "e2e/nxe-ddd-architecture-e2e/jest.config.ts",
+        "target": "nxe-ddd-architecture:build"
       }
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["nx-ddd-architecture"]
+  }
 }

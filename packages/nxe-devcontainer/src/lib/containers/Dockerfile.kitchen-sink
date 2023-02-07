@@ -1,0 +1,20 @@
+# Options: base, kitchen-sink
+ARG VARIANT=base
+FROM nx-enterprise/nxe-devcontainer:${VARIANT}
+
+ARG NXE_SCRIPTS
+
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-os-common.sh  # install common os stuff
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-k8s-cli.sh    # install k8s
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-nerd-fonts.sh # install Nerd Fonts
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-starship.sh   # install starship
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-gcm-core.sh   # install Git Credential Manager Core
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh # git configuration
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-protobuf.sh   # install protobuf
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-pnpm.sh       # install pnpm
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh    # cleanup
+
+# Setting the ENTRYPOINT to docker-init.sh will configure non-root access
+# to the Docker socket. The script will also execute CMD as needed.
+ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+CMD [ "sleep", "infinity" ]

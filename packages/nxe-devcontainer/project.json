@@ -1,0 +1,67 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "nxe-devcontainer",
+  "projectType": "library",
+  "sourceRoot": "packages/nxe-devcontainer/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "assets": [
+          "packages/nxe-devcontainer/*.md",
+          {
+            "glob": "**/!(*.ts)",
+            "input": "./packages/nxe-devcontainer/src",
+            "output": "./src"
+          },
+          {
+            "glob": "**/*.d.ts",
+            "input": "./packages/nxe-devcontainer/src",
+            "output": "./src"
+          },
+          {
+            "glob": "generators.json",
+            "input": "./packages/nxe-devcontainer",
+            "output": "."
+          },
+          {
+            "glob": "executors.json",
+            "input": "./packages/nxe-devcontainer",
+            "output": "."
+          }
+        ],
+        "main": "packages/nxe-devcontainer/src/index.ts",
+        "outputPath": "dist/packages/nxe-devcontainer",
+        "tsConfig": "packages/nxe-devcontainer/tsconfig.lib.json"
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/nxe-devcontainer/**/*.ts",
+          "packages/nxe-devcontainer/generators.json",
+          "packages/nxe-devcontainer/executors.json",
+          "packages/nxe-devcontainer/package.json"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/nxe-devcontainer/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    }
+  }
+}

@@ -1,0 +1,59 @@
+version: '3.9'
+services:
+  apps:
+    build:
+      context: .
+      dockerfile: Dockerfile # by default, extend the base image
+    environment:
+      DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
+    env_file:
+      - ../.env # load the rest of your environment variables
+    init: true
+    ulimits: # nx daemon likes to crawl a lot of files
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    volumes:
+      - ..:/nxe-apps:cached
+      # Forwards the local Docker socket to the container.
+      # - /var/run/docker.sock:/var/run/docker-host.sock
+      # - nxe-config:${NXE_WS_DEVCONTAINER}/persist # configuration we want to persist
+      # - nxe-cache-node:${NXE_WS}/node_modules # node modules
+      # - nxe-cache-angular:${NXE_WS}/.angular # angular build cache
+      # - nxe-cache-dist:${NXE_WS}/dist # app build output
+      # - nxe-cache-bin:${NXE_WS}/bin # binaries we downlaoded in our workspace
+
+    # Overrides default command so things don't shut down after the process ends.
+    entrypoint: /usr/local/share/docker-init.sh
+    command: sleep infinity
+
+    # Uncomment the next four lines if you will use a ptrace-based debuggers like C++, Go, and Rust.
+    # cap_add:
+    #  - SYS_PTRACE
+    # security_opt:
+    #   - seccomp:unconfined
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+    # extra_hosts:
+    #   - 'subdomain.domain:192.168.0.20'
+  # apps:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ..:/nxe-apps:cached
+
+  #   # Uncomment the next four lines if you will use a ptrace-based debuggers like C++, Go, and Rust.
+  #   # cap_add:
+  #   #  - SYS_PTRACE
+  #   # security_opt:
+  #   #   - seccomp:unconfined
+
+  #   # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+  #   # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  #   # extra_hosts:
+  #   #   - 'subdomain.domain.com:10.220.0.20'

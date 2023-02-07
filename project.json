@@ -1,13 +1,14 @@
 {
   "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": ".",
   "targets": {
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "syncVersions": true,
         "baseBranch": "main",
-        "versionTagPrefix": "",
-        "commitMessageFormat": "chore(${projectName}): release version ${version}"
+        "commitMessageFormat": "chore(${projectName}): release version ${version}",
+        "syncVersions": true,
+        "versionTagPrefix": ""
       }
     }
   }

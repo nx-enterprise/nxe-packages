@@ -1,0 +1,55 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "nxe-php",
+  "sourceRoot": "packages/nxe-php/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "assets": [
+          "packages/nxe-php/*.md",
+          {
+            "glob": "**/!(*.ts)",
+            "input": "./packages/nxe-php/src",
+            "output": "./src"
+          },
+          {
+            "glob": "**/*.d.ts",
+            "input": "./packages/nxe-php/src",
+            "output": "./src"
+          },
+          {
+            "glob": "generators.json",
+            "input": "./packages/nxe-php",
+            "output": "."
+          },
+          {
+            "glob": "executors.json",
+            "input": "./packages/nxe-php",
+            "output": "."
+          }
+        ],
+        "main": "packages/nxe-php/src/index.ts",
+        "outputPath": "dist/packages/nxe-php",
+        "tsConfig": "packages/nxe-php/tsconfig.lib.json"
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nxe-php/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/nxe-php/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/packages/nxe-php"]
+    }
+  }
+}

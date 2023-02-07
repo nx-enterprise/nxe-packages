@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nxe-ddd-architecture",
+  "version": "0.0.1",
+  "generators": {
+    "nxe-ddd-architecture": {
+      "factory": "./src/generators/nxe-ddd-architecture/generator",
+      "schema": "./src/generators/nxe-ddd-architecture/schema.json",
+      "description": "nxe-ddd-architecture generator"
+    }
+  }
+}

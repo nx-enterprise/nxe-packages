@@ -5,12 +5,12 @@ import {
   runNxCommandAsync,
   uniq,
 } from '@nrwl/nx-plugin/testing';
-describe('nx-python e2e', () => {
-  it('should create nx-python', async () => {
-    const plugin = uniq('nx-python');
-    ensureNxProject('@nx-enterprise/nx-python', 'dist/packages/nx-python');
+describe('nxe-python e2e', () => {
+  it('should create nxe-python', async () => {
+    const plugin = uniq('nxe-python');
+    ensureNxProject('@nx-enterprise/nxe-python', 'dist/packages/nxe-python');
     await runNxCommandAsync(
-      `generate @nx-enterprise/nx-python:nx-python ${plugin}`
+      `generate @nx-enterprise/nxe-python:nxe-python ${plugin}`
     );
 
     const result = await runNxCommandAsync(`build ${plugin}`);
@@ -19,10 +19,10 @@ describe('nx-python e2e', () => {
 
   describe('--directory', () => {
     it('should create src in the specified directory', async () => {
-      const plugin = uniq('nx-python');
-      ensureNxProject('@nx-enterprise/nx-python', 'dist/packages/nx-python');
+      const plugin = uniq('nxe-python');
+      ensureNxProject('@nx-enterprise/nxe-python', 'dist/packages/nxe-python');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-python:nx-python ${plugin} --directory subdir`
+        `generate @nx-enterprise/nxe-python:nxe-python ${plugin} --directory subdir`
       );
       expect(() =>
         checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
@@ -32,10 +32,10 @@ describe('nx-python e2e', () => {
 
   describe('--tags', () => {
     it('should add tags to the project', async () => {
-      const plugin = uniq('nx-python');
-      ensureNxProject('@nx-enterprise/nx-python', 'dist/packages/nx-python');
+      const plugin = uniq('nxe-python');
+      ensureNxProject('@nx-enterprise/nxe-python', 'dist/packages/nxe-python');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-python:nx-python ${plugin} --tags e2etag,e2ePackage`
+        `generate @nx-enterprise/nxe-python:nxe-python ${plugin} --tags e2etag,e2ePackage`
       );
       const project = readJson(`libs/${plugin}/project.json`);
       expect(project.tags).toEqual(['e2etag', 'e2ePackage']);

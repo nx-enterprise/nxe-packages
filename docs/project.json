@@ -1,7 +1,9 @@
 {
   "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "name": "docs",
   "projectType": "application",
   "sourceRoot": "docs/src",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx-plus/docusaurus:browser",
@@ -15,6 +17,5 @@
         "port": 3000
       }
     }
-  },
-  "tags": []
+  }
 }

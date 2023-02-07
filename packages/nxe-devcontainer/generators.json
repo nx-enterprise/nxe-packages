@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "generators": {
+    "nxe-devcontainer": {
+      "description": "nxe-devcontainer generator",
+      "factory": "./src/generators/nxe-devcontainer/generator",
+      "schema": "./src/generators/nxe-devcontainer/schema.json"
+    }
+  },
+  "name": "nxe-devcontainer",
+  "version": "0.0.1"
+}

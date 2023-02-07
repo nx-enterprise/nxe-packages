@@ -1,16 +1,17 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": ["nxe-php"],
+  "name": "nxe-php-e2e",
   "projectType": "application",
-  "sourceRoot": "e2e/nx-php-e2e/src",
+  "sourceRoot": "e2e/nxe-php-e2e/src",
+  "tags": [],
   "targets": {
     "e2e": {
       "executor": "@nrwl/nx-plugin:e2e",
       "options": {
-        "target": "nx-php:build",
-        "jestConfig": "e2e/nx-php-e2e/jest.config.ts"
+        "jestConfig": "e2e/nxe-php-e2e/jest.config.ts",
+        "target": "nxe-php:build"
       }
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["nx-php"]
+  }
 }

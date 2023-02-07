@@ -6,7 +6,7 @@ import {
   uniq,
 } from '@nrwl/nx-plugin/testing';
 
-describe('nx-python-fastapi e2e', () => {
+describe('nxe-python-fastapi e2e', () => {
   // Setting up individual workspaces per
   // test can cause e2e runs to take a long time.
   // For this reason, we recommend each suite only
@@ -15,8 +15,8 @@ describe('nx-python-fastapi e2e', () => {
   // are not dependant on one another.
   beforeAll(() => {
     ensureNxProject(
-      '@nx-enterprise/nx-python-fastapi',
-      'dist/packages/nx-python-fastapi'
+      '@nx-enterprise/nxe-python-fastapi',
+      'dist/packages/nxe-python-fastapi'
     );
   });
 
@@ -26,10 +26,10 @@ describe('nx-python-fastapi e2e', () => {
     runNxCommandAsync('reset');
   });
 
-  it('should create nx-python-fastapi', async () => {
-    const project = uniq('nx-python-fastapi');
+  it('should create nxe-python-fastapi', async () => {
+    const project = uniq('nxe-python-fastapi');
     await runNxCommandAsync(
-      `generate @nx-enterprise/nx-python-fastapi:nx-python-fastapi ${project}`
+      `generate @nx-enterprise/nxe-python-fastapi:nxe-python-fastapi ${project}`
     );
     const result = await runNxCommandAsync(`build ${project}`);
     expect(result.stdout).toContain('Executor ran');
@@ -37,9 +37,9 @@ describe('nx-python-fastapi e2e', () => {
 
   describe('--directory', () => {
     it('should create src in the specified directory', async () => {
-      const project = uniq('nx-python-fastapi');
+      const project = uniq('nxe-python-fastapi');
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-python-fastapi:nx-python-fastapi ${project} --directory subdir`
+        `generate @nx-enterprise/nxe-python-fastapi:nxe-python-fastapi ${project} --directory subdir`
       );
       expect(() =>
         checkFilesExist(`libs/subdir/${project}/src/index.ts`)
@@ -49,13 +49,13 @@ describe('nx-python-fastapi e2e', () => {
 
   describe('--tags', () => {
     it('should add tags to the project', async () => {
-      const projectName = uniq('nx-python-fastapi');
+      const projectName = uniq('nxe-python-fastapi');
       ensureNxProject(
-        '@nx-enterprise/nx-python-fastapi',
-        'dist/packages/nx-python-fastapi'
+        '@nx-enterprise/nxe-python-fastapi',
+        'dist/packages/nxe-python-fastapi'
       );
       await runNxCommandAsync(
-        `generate @nx-enterprise/nx-python-fastapi:nx-python-fastapi ${projectName} --tags e2etag,e2ePackage`
+        `generate @nx-enterprise/nxe-python-fastapi:nxe-python-fastapi ${projectName} --tags e2etag,e2ePackage`
       );
       const project = readJson(`libs/${projectName}/project.json`);
       expect(project.tags).toEqual(['e2etag', 'e2ePackage']);

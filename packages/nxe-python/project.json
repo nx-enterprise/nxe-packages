@@ -1,0 +1,55 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "nxe-python",
+  "sourceRoot": "packages/nxe-python/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "assets": [
+          "packages/nxe-python/*.md",
+          {
+            "glob": "**/!(*.ts)",
+            "input": "./packages/nxe-python/src",
+            "output": "./src"
+          },
+          {
+            "glob": "**/*.d.ts",
+            "input": "./packages/nxe-python/src",
+            "output": "./src"
+          },
+          {
+            "glob": "generators.json",
+            "input": "./packages/nxe-python",
+            "output": "."
+          },
+          {
+            "glob": "executors.json",
+            "input": "./packages/nxe-python",
+            "output": "."
+          }
+        ],
+        "main": "packages/nxe-python/src/index.ts",
+        "outputPath": "dist/packages/nxe-python",
+        "tsConfig": "packages/nxe-python/tsconfig.lib.json"
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nxe-python/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/nxe-python/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/packages/nxe-python"]
+    }
+  }
+}

@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'nx-python-e2e',
+  displayName: 'nxe-python-e2e',
   preset: '../../jest.preset.ts',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/e2e/nx-python-e2e',
+  coverageDirectory: '../../coverage/e2e/nxe-python-e2e',
 };
