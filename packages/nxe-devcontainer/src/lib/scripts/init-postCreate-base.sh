@@ -3,17 +3,34 @@
 pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
 echo "Started running: scripts/init-postCreate-base.sh"
 
+# ~/nxe.log
+sudo touch "${NXE_HOME}/nxe.log"
+
+# ~/bin/
+sudo mkdir -p "${NXE_HOME}/bin/"
+
 # #
 # # ZSH + oh my zsh
 # ########################################
 su $USERNAME -c `rm "${NXE_HOME}/.zshrc"`
 su $USERNAME -c `ln -s "${NXE_SHELL}/.zshrc" "${NXE_HOME}/.zshrc"`
 
+# ignore files that we persist across sessions
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}/.devcontainer` >> "${NXE_HOME}/nxe.log" 2>&1 &
+sudo mkdir -p "${NXE_WS_DEVCONTAINER}/persist/"
+sudo touch "${NXE_WS_DEVCONTAINER}/persist/.gitignore"
+sudo echo "*" > "${NXE_WS_DEVCONTAINER}/persist/.gitignore"
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}/.devcontainer` >> "${NXE_HOME}/nxe.log" 2>&1 &
+
+# add dapr cli in case 'the people' want it :)
+source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart
+
 # set permissions
-nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_HOME}` >> `/tmp/permissions.out` 2>&1 &
-nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}` >> `/tmp/permissions.out` 2>&1 &
-nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_SCRIPTS}` >> `/tmp/permissions.out` 2>&1 &
-nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_SHELL}` >> `/tmp/permissions.out` 2>&1 &
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_HOME}` >> "${NXE_HOME}/nxe.log" 2>&1 &
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}` >> "${NXE_HOME}/nxe.log" 2>&1 &
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_SCRIPTS}` >> "${NXE_HOME}/nxe.log" 2>&1 &
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_SHELL}` >> "${NXE_HOME}/nxe.log" 2>&1 &
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_DAPR}` >> "${NXE_HOME}/nxe.log" 2>&1 &
 
 ##
 ## These scripts run AFTER the container is built.

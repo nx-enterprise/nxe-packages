@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  apps:
+  nxe-apps:
     build:
       context: .
       dockerfile: Dockerfile # by default, extend the base image
@@ -13,7 +13,7 @@ services:
         soft: 65535
         hard: 65535
     volumes:
-      - ..:/nxe-apps:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
+      - ..:/nxe-apps-ws:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
       # Forwards the local Docker socket to the container.
       - /var/run/docker.sock:/var/run/docker-host.sock
       - nxe-config:${NXE_WS_DEVCONTAINER}/persist # configuration we want to persist

@@ -11,9 +11,9 @@
 # fi
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-sudo chown -R $USERNAME "${NXE_WS}/bin/"
-if [ -f "${NXE_WS}/bin/antigen.zsh" ]; then echo "Antigen already installed."; else curl -L git.io/antigen > "${NXE_WS}/bin/antigen.zsh" && echo "Antigen installed."; fi
-source "${NXE_WS}/bin/antigen.zsh"
+sudo chown -R $USERNAME "${NXE_HOME}/bin/"
+if [ -f "${NXE_HOME}/bin/antigen.zsh" ]; then echo "Antigen already installed."; else curl -L git.io/antigen > "${NXE_HOME}/bin/antigen.zsh" && echo "Antigen installed."; fi
+source "${NXE_HOME}/bin/antigen.zsh"
 
 # Load the oh-my-zsh library.
 antigen use oh-my-zsh

@@ -1,13 +1,15 @@
 #!/bin/zsh
 pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
 
+# required to run this at startup
+source "${NXE_SCRIPTS}/init-postCreate-base.sh" && echo "Sourced ${NXE_SCRIPTS}/init-postCreate-base.sh"
+
+
 ##
 ## These scripts run AFTER the container is built.
 ## And MUST be run sequentially... note the '&& \'
 ##
-source "${NXE_SCRIPTS}/nxe-post-node-packages.zsh" && \ # node stuff
-source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh"      # install dapr cli
-source "${NXE_SCRIPTS}/nxe-post-permissions.zsh"      # update permissions on each start
+
 
 # # Mac M1 compat
 
@@ -55,7 +57,7 @@ source "${NXE_SCRIPTS}/nxe-post-permissions.zsh"      # update permissions on ea
 # RUN su vscode -c "curl -sS https://starship.rs/install.sh | sh -s -- -y" 2>&1
 
 # # git safety, people :D ... and ensure GCM works the way its supposed to
-# RUN git config --system --add safe.directory /nxe-apps
+# RUN git config --system --add safe.directory /nxe-apps-ws
 # RUN git config --system credential.useHttpPath true
 # RUN git config --system core.checkStat minimal
 # RUN git config --system core.trustctime false

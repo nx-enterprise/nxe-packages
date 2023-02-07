@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  apps:
+  nxe-apps:
     build:
       context: .
       dockerfile: Dockerfile # by default, extend the base image

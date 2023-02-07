@@ -8,6 +8,7 @@ services:
       args:
         NXE_SCRIPTS: ${NXE_SCRIPTS}
         NXE_SHELL: ${NXE_SHELL}
+        NXE_DAPR: ${NXE_DAPR}
     environment:
       DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
     env_file:

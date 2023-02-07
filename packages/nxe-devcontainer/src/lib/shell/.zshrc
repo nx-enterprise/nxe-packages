@@ -5,7 +5,7 @@ ZSH_DISABLE_COMPFIX=true
 
 ## CANNOT CHANGE THIS BECAUSE IT IS AUTOMATICALLY ADDED
 # pnpm
-export PNPM_HOME="/nxe-apps/node_modules/.pnpm"
+export PNPM_HOME="${NXE_WS}/node_modules/.pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 source "${NXE_SHELL}/nxe-shell-exports.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-exports.zsh" # source this first!
@@ -24,7 +24,7 @@ if [ -f "${NXE_WS}/bin/dotenv-linter" ]; then curl -sSfL https://raw.githubuserc
 # security stuff so ZSH doesn't yell at us
 sudo chmod -R 755 "/usr/local/share/zsh"
 sudo chmod -R 755 "/usr/local/share/zsh/site-functions"
-sudo chmod -R 755 "/home/${USERNAME}/.oh-my-zsh/"
+sudo chmod -R 755 "${NXE_HOME}/.oh-my-zsh/"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
