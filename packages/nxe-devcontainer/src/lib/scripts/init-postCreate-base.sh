@@ -8,23 +8,25 @@ sudo touch "${NXE_HOME}/nxe.log"
 sudo chown -R ${USERNAME}:${USERNAME} "${NXE_HOME}/nxe.log"
 
 # ~/bin/
-sudo mkdir -p "${NXE_HOME}/bin/"
+su $USERNAME -c `sudo mkdir -p "${NXE_HOME}/bin/"`
 
 # #
 # # ZSH + oh my zsh
 # ########################################
-su $USERNAME -c `rm "${NXE_HOME}/.zshrc"`
-su $USERNAME -c `ln -s "${NXE_SHELL}/.zshrc" "${NXE_HOME}/.zshrc"`
+su $USERNAME -c `sudo rm "${NXE_HOME}/.zshrc"`
+su $USERNAME -c `sudo ln -s "${NXE_SHELL}/.zshrc" "${NXE_HOME}/.zshrc"`
 
 # ignore files that we persist across sessions
 nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}/.devcontainer` >> "${NXE_HOME}/nxe.log" 2>&1 &
-sudo mkdir -p "${NXE_WS_DEVCONTAINER}/persist/"
-sudo touch "${NXE_WS_DEVCONTAINER}/persist/.gitignore"
-sudo echo "*" > "${NXE_WS_DEVCONTAINER}/persist/.gitignore"
-nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}/.devcontainer` >> "${NXE_HOME}/nxe.log" 2>&1 &
+su $USERNAME -c `sudo mkdir -p "${NXE_WS_DEVCONTAINER}/persist/"`
+su $USERNAME -c `sudo touch "${NXE_WS_DEVCONTAINER}/persist/.gitignore"`
+su $USERNAME -c `sudo echo "*" > "${NXE_WS_DEVCONTAINER}/persist/.gitignore"`
 
 # add dapr cli in case 'the people' want it :)
-source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart
+su $USERNAME -c `source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh"` && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart
+
+# install PNPM
+su $USERNAME -c `source "${NXE_SCRIPTS}/nxe-post-pnpm.zsh"`  # install pnpm
 
 # set permissions
 nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_HOME}` >> "${NXE_HOME}/nxe.log" 2>&1 &

@@ -16,7 +16,6 @@ COPY dapr/components/* $NXE_DAPR/components
 COPY dapr/config.yaml $NXE_DAPR
 
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh # git configuration
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-pnpm.sh       # install pnpm
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh    # cleanup
 
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access

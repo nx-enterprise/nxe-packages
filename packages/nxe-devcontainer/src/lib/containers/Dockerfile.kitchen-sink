@@ -11,7 +11,6 @@ RUN /bin/bash $NXE_SCRIPTS/nxe-pre-starship.sh   # install starship
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-gcm-core.sh   # install Git Credential Manager Core
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh # git configuration
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-protobuf.sh   # install protobuf
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-pnpm.sh       # install pnpm
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh    # cleanup
 
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access
