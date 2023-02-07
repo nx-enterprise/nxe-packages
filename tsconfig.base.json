@@ -5,22 +5,24 @@
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["es2017", "dom"],
+    "lib": ["es2022", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
       "@nx-enterprise/nxe-dapr": ["packages/nxe-dapr/src/index.ts"],
       "@nx-enterprise/nxe-ddd-architecture": ["packages/nxe-ddd-architecture/src/index.ts"],
+      "@nx-enterprise/nxe-devcontainer": ["packages/nxe-devcontainer/src/index.ts"],
       "@nx-enterprise/nxe-php": ["packages/nxe-php/src/index.ts"],
       "@nx-enterprise/nxe-python": ["packages/nxe-python/src/index.ts"],
-      "@nx-enterprise/nxe-python-fastapi": ["packages/nxe-python-fastapi/src/index.ts"],
-      "@nx-enterprise/nxe-devcontainer": ["packages/nxe-devcontainer/src/index.ts"]
+      "@nx-enterprise/nxe-python-fastapi": ["packages/nxe-python-fastapi/src/index.ts"]
     },
     "rootDir": ".",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
+    "strict": true,
     "target": "es2015"
   },
   "exclude": ["node_modules", "tmp"]
