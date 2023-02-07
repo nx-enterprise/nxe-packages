@@ -26,7 +26,9 @@
   },
   "dockerComposeFile": [
     "docker-compose.yml",
-    "../packages/nxe-devcontainer/src/lib/docker-compose.nxe.yml"
+    "../packages/nxe-devcontainer/src/lib/docker-compose.nxe.yml",
+    "../packages/nxe-devcontainer/src/lib/docker-compose.nxe-dapr.yml",
+    "../packages/nxe-devcontainer/src/lib/docker-compose.nxe-k3s.yml"
   ],
   "features": {
     "ghcr.io/devcontainers-contrib/features/bash-command:1": {},
@@ -35,8 +37,7 @@
       "enableNonRootDocker": "true",
       "moby": "true",
       "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/nix:1": { "version": "latest" }
+    }
   },
   "forwardPorts": [],
   "name": "nxe-apps",

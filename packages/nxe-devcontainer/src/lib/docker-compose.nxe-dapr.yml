@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  apps:
+    build:
+      context: .
+      dockerfile: Dockerfile # by default, extend the base image
+    environment:
+      DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
+    env_file:
+      - ../.env # from the context of <workspace>/.devcontainer
+  nxe-apps-dapr-placement:
+    image: 'daprio/dapr'
+    command: ['./placement', '-port', '50006']
+    ports:
+      - '50006:50006'
+  nxe-apps-dapr-redis:
+    image: 'redis:alpine'
+    ports:
+      - '6380:6379'
+  nxe-apps-dapr-zipkin:
+    image: 'openzipkin/zipkin'
+    ports:
+      - '9411:9411'
+
+networks:
+  default:
+    name: ${NXE_NETWORK}

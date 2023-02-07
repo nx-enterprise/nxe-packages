@@ -1,0 +1,79 @@
+version: '3.9'
+services:
+  nxe-k3s-server:
+    image: 'rancher/k3s:${K3S_VERSION:-latest}'
+    command: server
+    tmpfs:
+      - /run
+      - /var/run
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
+    restart: always
+    env_file:
+      - ../.env # from the context of <workspace>/.devcontainer
+    environment:
+      - K3S_VERSION=${NXE_K3S_VERSION}
+      - K3S_TOKEN=${NXE_K3S_TOKEN}
+      - K3S_KUBECONFIG_OUTPUT=${NXE_K3S_OUT}/kubeconfig.yaml
+      - K3S_KUBECONFIG_MODE=666
+    volumes:
+      - nxe-k3s-data:/var/lib/rancher/k3s
+      # This is just so that we get the kubeconfig file out
+      - nxe-config:${NXE_K3S_OUT}
+    ports:
+      - 6443:6443 # Kubernetes API Server
+      - 80:80 # Ingress controller port 80
+      - 443:443 # Ingress controller port 443
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 1024M
+        reservations:
+          cpus: '0.50'
+          memory: 256M
+
+  nxe-k3s-agent:
+    image: 'rancher/k3s:${K3S_VERSION:-latest}'
+    tmpfs:
+      - /run
+      - /var/run
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
+    restart: always
+    env_file:
+      - ../.env # from the context of <workspace>/.devcontainer
+    environment:
+      - K3S_VERSION=${NXE_K3S_VERSION}
+      - K3S_URL=https://nxe-k3s-server:6443
+      - K3S_TOKEN=${NXE_K3S_TOKEN}
+    deploy:
+      mode: replicated
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 1536M
+        reservations:
+          cpus: '0.50'
+          memory: 256M
+
+networks:
+  default:
+    name: ${NXE_NETWORK}
+
+volumes:
+  nxe-config:
+  nxe-cache-angular:
+  nxe-cache-dist:
+  nxe-cache-node:
+  nxe-cache-bin:
+  nxe-k3s-data: {}

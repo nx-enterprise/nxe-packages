@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+echo "Started running: scripts/init-postCreate-base.sh"
 
 # #
 # # ZSH + oh my zsh
@@ -11,7 +12,8 @@ su $USERNAME -c `ln -s "${NXE_SHELL}/.zshrc" "${NXE_HOME}/.zshrc"`
 # set permissions
 nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_HOME}` >> `/tmp/permissions.out` 2>&1 &
 nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}` >> `/tmp/permissions.out` 2>&1 &
-
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_SCRIPTS}` >> `/tmp/permissions.out` 2>&1 &
+nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_SHELL}` >> `/tmp/permissions.out` 2>&1 &
 
 ##
 ## These scripts run AFTER the container is built.
@@ -47,4 +49,5 @@ nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}` >> `/tmp/permissions.out
 # ENV PNPM_HOME /home/vscode/.pnpm
 # #RUN su vscode -c "PATH='$PATH:/home/vscode/.pnpm'; /usr/local/share/nvm/nvm.sh && pnpm add -g nx npm pnpm" 2>&1
 
+echo "Finished running: scripts/init-postCreate-base.sh"
 popd
