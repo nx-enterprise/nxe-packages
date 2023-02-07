@@ -5,6 +5,7 @@ echo "Started running: scripts/init-postCreate-base.sh"
 
 # ~/nxe.log
 sudo touch "${NXE_HOME}/nxe.log"
+sudo chown -R ${USERNAME}:${USERNAME} "${NXE_HOME}/nxe.log"
 
 # ~/bin/
 sudo mkdir -p "${NXE_HOME}/bin/"
