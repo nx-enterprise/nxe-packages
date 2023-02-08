@@ -5,7 +5,7 @@ ZSH_DISABLE_COMPFIX=true
 
 ## CANNOT CHANGE THIS BECAUSE IT IS AUTOMATICALLY ADDED
 # pnpm
-export PNPM_HOME="${NXE_WS}/node_modules/.pnpm"
+export PNPM_HOME=/nxe-apps-ws/node_modules/.pnpm
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 source "${NXE_SHELL}/nxe-shell-exports.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-exports.zsh" # source this first!

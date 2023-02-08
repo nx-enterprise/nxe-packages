@@ -7,12 +7,12 @@ wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O 
 dapr init --slim
 
 # remove old config
-sudo rm -rf `${NXE_HOME}/.dapr/components/` `${NXE_HOME}/.dapr/config.yaml`
-sudo mkdir -p `${NXE_HOME}/.dapr/components`
+sudo rm -rf $NXE_HOME/.dapr/components/ $NXE_HOME/.dapr/config.yaml
+mkdir -p $NXE_HOME/.dapr/components
 
-sudo ln -s "${NXE_DAPR}/config.yaml" "${NXE_HOME}/.dapr/config.yaml"
-sudo ln -s "${NXE_DAPR}/components/pubsub.yaml"  "${NXE_HOME}/.dapr/components/pubsub.yaml"
-sudo ln -s "${NXE_DAPR}/components/statestore.yaml"  "${NXE_HOME}/.dapr/components/statestore.yaml"
+ln -s $NXE_DAPR/config.yaml $NXE_HOME/.dapr/config.yaml
+ln -s $NXE_DAPR/components/pubsub.yaml  $NXE_HOME/.dapr/components/pubsub.yaml
+ln -s $NXE_DAPR/components/statestore.yaml  $NXE_HOME/.dapr/components/statestore.yaml
 
 popd
 
