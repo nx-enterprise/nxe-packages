@@ -9,7 +9,7 @@ chown -R $USERNAME:$USERNAME $NXE_HOME/nxe.log
 whoami
 
 # ~/bin/
-mkdir -p "${NXE_HOME}/bin/"
+mkdir -p $NXE_HOME/bin/
 
 # #
 # # ZSH + oh my zsh
