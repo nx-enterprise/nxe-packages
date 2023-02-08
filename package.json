@@ -107,7 +107,7 @@
     "ts-jest": "28.0.8",
     "ts-node": "10.9.1",
     "tslib": "^2.5.0",
-    "typescript": "next",
+    "typescript": "beta",
     "webpack": "^5.75.0"
   },
   "packageManager": "pnpm@7.26.0",
@@ -120,7 +120,7 @@
     "overrides": {
       "file-saver": "2.0.5",
       "rxjs": "7.8.0",
-      "typescript": "next"
+      "typescript": "beta"
     }
   }
 }
