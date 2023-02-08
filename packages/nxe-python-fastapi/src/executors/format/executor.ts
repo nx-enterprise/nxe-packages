@@ -3,10 +3,7 @@ import { FormatExecutorSchema } from './schema';
 import { getProjectRoot } from '../../utils';
 import { executePoetryCommand } from '../../poetry';
 
-export default async function runExecutor(
-  options: FormatExecutorSchema,
-  context: ExecutorContext
-) {
+export default async function runExecutor(options: FormatExecutorSchema, context: ExecutorContext) {
   console.log('Executor ran for format', options);
   const check = options.check ?? false;
 

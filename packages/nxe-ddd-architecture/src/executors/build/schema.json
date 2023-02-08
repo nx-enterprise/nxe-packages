@@ -1,11 +1,11 @@
 {
-  "version": 2,
-  "outputCapture": "direct-nodejs",
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "title": "Build executor",
   "description": "",
-  "type": "object",
+  "outputCapture": "direct-nodejs",
   "properties": {},
-  "required": []
+  "required": [],
+  "title": "Build executor",
+  "type": "object",
+  "version": 2
 }

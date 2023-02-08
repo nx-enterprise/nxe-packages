@@ -1,12 +1,12 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "nxe-python-fastapi",
-  "version": "0.0.1",
   "generators": {
     "app": {
+      "description": "fastapi app generator",
       "factory": "./src/generators/app/generator",
-      "schema": "./src/generators/app/schema.json",
-      "description": "fastapi app generator"
+      "schema": "./src/generators/app/schema.json"
     }
-  }
+  },
+  "name": "nxe-python-fastapi",
+  "version": "0.0.1"
 }

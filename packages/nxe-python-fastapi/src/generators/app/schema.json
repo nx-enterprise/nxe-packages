@@ -2,45 +2,45 @@
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
   "id": "PythonPoetry",
-  "title": "",
-  "type": "object",
   "properties": {
+    "directory": {
+      "alias": "d",
+      "description": "A directory where the project is placed",
+      "type": "string"
+    },
     "name": {
-      "type": "string",
-      "description": "The project name, used for folder structure and package reference.",
       "$default": {
         "$source": "argv",
         "index": 0
       },
+      "description": "The project name, used for folder structure and package reference.",
+      "type": "string",
       "x-prompt": "What name would you like to use?"
     },
-    "title": {
-      "type": "string",
-      "description": "Project title - the human readable app name"
-    },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    },
-    "directory": {
-      "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
-    },
-    "pgUser": {
-      "type": "string",
-      "description": "Postgres database user"
-    },
     "pgDb": {
-      "type": "string",
-      "description": "Postgres database name"
+      "description": "Postgres database name",
+      "type": "string"
     },
     "pgPassword": {
-      "type": "string",
+      "default": "dev",
       "description": "Postgres database name",
-      "default": "dev"
+      "type": "string"
+    },
+    "pgUser": {
+      "description": "Postgres database user",
+      "type": "string"
+    },
+    "tags": {
+      "alias": "t",
+      "description": "Add tags to the project (used for linting)",
+      "type": "string"
+    },
+    "title": {
+      "description": "Project title - the human readable app name",
+      "type": "string"
     }
   },
-  "required": ["name"]
+  "required": ["name"],
+  "title": "",
+  "type": "object"
 }

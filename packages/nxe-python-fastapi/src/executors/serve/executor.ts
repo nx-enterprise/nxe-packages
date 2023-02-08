@@ -1,17 +1,9 @@
 import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
 import { DevServerExecutorSchema } from './schema';
 import { getProjectRoot } from '../../utils';
-import {
-  CmdStatus,
-  runPoetryCommandAsync,
-  waitForCommand,
-  executePoetryCommand,
-} from '../../poetry';
+import { CmdStatus, runPoetryCommandAsync, waitForCommand, executePoetryCommand } from '../../poetry';
 
-export default async function* runExecutor(
-  options: DevServerExecutorSchema,
-  context: ExecutorContext
-) {
+export default async function* runExecutor(options: DevServerExecutorSchema, context: ExecutorContext) {
   console.log('Executor ran for DevServer', options);
 
   const projectRoot = getProjectRoot(context);
@@ -33,7 +25,7 @@ export default async function* runExecutor(
         'run',
         'alembic',
         'upgrade',
-        'head'
+        'head',
       );
       if (!dbMigrate) {
         return { success: false };
@@ -41,17 +33,8 @@ export default async function* runExecutor(
     }
     const child = await runPoetryCommandAsync(
       joinPathFragments(projectRoot, 'src'),
-      [
-        'run',
-        'uvicorn',
-        'main:app',
-        '--reload',
-        '--port',
-        port.toString(),
-        '--host',
-        host,
-      ],
-      checkStatus
+      ['run', 'uvicorn', 'main:app', '--reload', '--port', port.toString(), '--host', host],
+      checkStatus,
     );
 
     if (!child) {

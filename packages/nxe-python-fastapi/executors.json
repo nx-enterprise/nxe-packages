@@ -1,25 +1,25 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
-    "serve": {
-      "implementation": "./src/executors/serve/executor",
-      "schema": "./src/executors/serve/schema.json",
-      "description": "App dev server executor"
-    },
     "format": {
+      "description": "Black formatter executor",
       "implementation": "./src/executors/format/executor",
-      "schema": "./src/executors/format/schema.json",
-      "description": "Black formatter executor"
-    },
-    "test": {
-      "implementation": "./src/executors/test/executor",
-      "schema": "./src/executors/test/schema.json",
-      "description": "Pytest test executor"
+      "schema": "./src/executors/format/schema.json"
     },
     "lint": {
+      "description": "Flake8 lint executor",
       "implementation": "./src/executors/lint/executor",
-      "schema": "./src/executors/lint/schema.json",
-      "description": "Flake8 lint executor"
+      "schema": "./src/executors/lint/schema.json"
+    },
+    "serve": {
+      "description": "App dev server executor",
+      "implementation": "./src/executors/serve/executor",
+      "schema": "./src/executors/serve/schema.json"
+    },
+    "test": {
+      "description": "Pytest test executor",
+      "implementation": "./src/executors/test/executor",
+      "schema": "./src/executors/test/schema.json"
     }
   }
 }

@@ -1,27 +1,27 @@
 {
-  "version": 2,
-  "outputCapture": "direct-nodejs",
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "title": "Dev Server",
   "description": "Serve the app for development",
-  "type": "object",
+  "outputCapture": "direct-nodejs",
   "properties": {
     "host": {
-      "type": "string",
+      "default": "localhost",
       "description": "Dev server hostname",
-      "default": "localhost"
-    },
-    "port": {
-      "type": "number",
-      "description": "Dev server port",
-      "default": 3000
+      "type": "string"
     },
     "migrate": {
-      "type": "boolean",
+      "default": true,
       "description": "Run database migration before serving",
-      "default": true
+      "type": "boolean"
+    },
+    "port": {
+      "default": 3000,
+      "description": "Dev server port",
+      "type": "number"
     }
   },
-  "required": []
+  "required": [],
+  "title": "Dev Server",
+  "type": "object",
+  "version": 2
 }

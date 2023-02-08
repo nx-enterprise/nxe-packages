@@ -4,11 +4,12 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-/** @type {import('@docusaurus/types').Config} */
+/**
+ * @type {import('@docusaurus/types').Config}
+ */
 const config = {
   title: 'Nx Enterprise',
-  tagline:
-    'A suite of Nx packages for developing scalable enterprise apps and micro-services.',
+  tagline: 'A suite of Nx packages for developing scalable enterprise apps and micro-services.',
   url: 'https://nx-enterprise.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -20,19 +21,19 @@ const config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
+      /**
+       * @type {import('@docusaurus/preset-classic').Options}
+       */
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/nx-enterprise/nx-enterprise/edit/main/docs/',
+          editUrl: 'https://github.com/nx-enterprise/nx-enterprise/edit/main/docs/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/nx-enterprise/nx-enterprise/edit/main/blog/',
+          editUrl: 'https://github.com/nx-enterprise/nx-enterprise/edit/main/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -42,7 +43,9 @@ const config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    /**
+     * @type {import('@docusaurus/preset-classic').ThemeConfig}
+     */
     ({
       navbar: {
         title: 'Nx Enterprise',

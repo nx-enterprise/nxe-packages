@@ -1,12 +1,12 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "nxe-dapr",
-  "version": "0.0.1",
   "generators": {
     "nxe-dapr": {
+      "description": "nxe-dapr generator",
       "factory": "./src/generators/nxe-dapr/generator",
-      "schema": "./src/generators/nxe-dapr/schema.json",
-      "description": "nxe-dapr generator"
+      "schema": "./src/generators/nxe-dapr/schema.json"
     }
-  }
+  },
+  "name": "nxe-dapr",
+  "version": "0.0.1"
 }

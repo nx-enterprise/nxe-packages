@@ -1,12 +1,12 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "nxe-php",
-  "version": "0.0.1",
   "generators": {
     "nxe-php": {
+      "description": "nxe-php generator",
       "factory": "./src/generators/nxe-php/generator",
-      "schema": "./src/generators/nxe-php/schema.json",
-      "description": "nxe-php generator"
+      "schema": "./src/generators/nxe-php/schema.json"
     }
-  }
+  },
+  "name": "nxe-php",
+  "version": "0.0.1"
 }

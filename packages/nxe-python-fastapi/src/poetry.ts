@@ -29,7 +29,7 @@ function commandSetup(root: string, args: string[]): string | null {
 export function runPoetryCommandAsync(
   root: string,
   args: string[],
-  checkStatus: (data: string) => CmdStatus
+  checkStatus: (data: string) => CmdStatus,
 ): Promise<ChildProcess> {
   return new Promise((resolve, reject) => {
     const cmd = commandSetup(root, args);
@@ -80,10 +80,7 @@ export function waitForCommand(cmd: ChildProcess, baseUrl?: string) {
   });
 }
 
-export function runPoetryCommand(
-  root: string,
-  ...args: string[]
-): GeneratorCallback {
+export function runPoetryCommand(root: string, ...args: string[]): GeneratorCallback {
   return (): void => {
     const cmd = commandSetup(root, args);
 

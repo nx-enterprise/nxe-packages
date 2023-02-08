@@ -1,17 +1,17 @@
 {
-  "version": 2,
-  "outputCapture": "direct-nodejs",
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "title": "Black formatter",
   "description": "Format the app with Black",
-  "type": "object",
+  "outputCapture": "direct-nodejs",
   "properties": {
     "check": {
-      "type": "boolean",
+      "default": false,
       "description": "Check for formatting issues without writing files",
-      "default": false
+      "type": "boolean"
     }
   },
-  "required": []
+  "required": [],
+  "title": "Black formatter",
+  "type": "object",
+  "version": 2
 }

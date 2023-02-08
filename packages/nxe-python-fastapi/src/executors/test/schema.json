@@ -1,11 +1,11 @@
 {
-  "version": 2,
-  "outputCapture": "direct-nodejs",
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "title": "Pytest",
   "description": "Test the app with Pytest",
-  "type": "object",
+  "outputCapture": "direct-nodejs",
   "properties": {},
-  "required": []
+  "required": [],
+  "title": "Pytest",
+  "type": "object",
+  "version": 2
 }

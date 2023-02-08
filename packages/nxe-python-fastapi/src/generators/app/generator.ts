@@ -12,10 +12,7 @@ import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-ser
 import * as path from 'path';
 import { AppGeneratorSchema } from './schema';
 import { runPoetryCommand } from '../../poetry';
-import {
-  VSCodeExtensionsFilePath,
-  recommendedExtensions,
-} from '../../defaults';
+import { VSCodeExtensionsFilePath, recommendedExtensions } from '../../defaults';
 
 interface NormalizedSchema extends AppGeneratorSchema {
   projectName: string;
@@ -25,23 +22,13 @@ interface NormalizedSchema extends AppGeneratorSchema {
   parsedTags: string[];
 }
 
-function normalizeOptions(
-  host: Tree,
-  options: AppGeneratorSchema
-): NormalizedSchema {
+function normalizeOptions(host: Tree, options: AppGeneratorSchema): NormalizedSchema {
   const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? names(options.directory).fileName
-    : name;
+  const projectDirectory = options.directory ? names(options.directory).fileName : name;
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
   const projectTitle = options.title ?? projectName;
-  const projectRoot = joinPathFragments(
-    getWorkspaceLayout(host).appsDir,
-    projectDirectory
-  );
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
+  const projectRoot = joinPathFragments(getWorkspaceLayout(host).appsDir, projectDirectory);
+  const parsedTags = options.tags ? options.tags.split(',').map((s) => s.trim()) : [];
 
   return {
     ...options,
@@ -66,12 +53,7 @@ function addFiles(host: Tree, options: NormalizedSchema) {
     dot: '.',
     template: '',
   };
-  generateFiles(
-    host,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
+  generateFiles(host, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
 }
 
 function updateExtensionRecommendations(host: Tree) {
@@ -82,10 +64,7 @@ function updateExtensionRecommendations(host: Tree) {
   updateJson(host, VSCodeExtensionsFilePath, (json) => {
     json.recommendations ??= [];
     for (const extension of recommendedExtensions) {
-      if (
-        Array.isArray(json.recommendations) &&
-        !json.recommendations.includes(extension)
-      )
+      if (Array.isArray(json.recommendations) && !json.recommendations.includes(extension))
         json.recommendations.push(extension);
     }
     return json;
@@ -126,15 +105,10 @@ export default async function (host: Tree, options: AppGeneratorSchema) {
   const format = runPoetryCommand(projectRoot, 'run', 'black', 'src');
 
   const preStart = options.pgDb
-    ? runPoetryCommand(
-        joinPathFragments(projectRoot, 'src'),
-        'run',
-        'python',
-        'pre_start.py'
-      )
+    ? runPoetryCommand(joinPathFragments(projectRoot, 'src'), 'run', 'python', 'pre_start.py')
     : () => {
         console.log(
-          'No database name, skipping initialization. Run "poetry run python pre_start.py" from the src directory'
+          'No database name, skipping initialization. Run "poetry run python pre_start.py" from the src directory',
         );
       };
 

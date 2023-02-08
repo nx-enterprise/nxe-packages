@@ -13,10 +13,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Ready for the Big Time',
     image: '/img/buildings-svgrepo-com.svg',
     description: (
-      <>
-        Nx Enterprise was designed from real-world experiences building
-        applications for large companies at scale.
-      </>
+      <>Nx Enterprise was designed from real-world experiences building applications for large companies at scale.</>
     ),
   },
   {
@@ -24,20 +21,16 @@ const FeatureList: FeatureItem[] = [
     image: 'https://dapr.io/images/dapr.svg',
     description: (
       <>
-        Nx Enterprise is design to run on top of Dapr - Microsoft's
-        groundbreaking framework for building distributed applications.
+        Nx Enterprise is design to run on top of Dapr - Microsoft's groundbreaking framework for building distributed
+        applications.
       </>
     ),
   },
   {
     title: 'Built-In Domain Drive Design Best Practices',
-    image:
-      'https://pluralsight2.imgix.net/paths/images/domain-driven-design-6d10f953a0.png',
+    image: 'https://pluralsight2.imgix.net/paths/images/domain-driven-design-6d10f953a0.png',
     description: (
-      <>
-        We believe an opinionated domain-driven-design approach to writing code
-        is essential in the enterprise.
-      </>
+      <>We believe an opinionated domain-driven-design approach to writing code is essential in the enterprise.</>
     ),
   },
 ];
