@@ -1,5 +1,5 @@
 #!/bin/zsh
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 # required to run this at startup
 source "${NXE_SCRIPTS}/init-postCreate-base.sh" && echo "Sourced ${NXE_SCRIPTS}/init-postCreate-base.sh"

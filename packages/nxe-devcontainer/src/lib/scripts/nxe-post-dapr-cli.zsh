@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-pushd $NXE_SCRIPTS
+pushd /tmp
 
 # Install Dapr to our workspaces' bin folder
 wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash

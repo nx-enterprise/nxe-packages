@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 curl -LO https://aka.ms/gcm/linux-install-source.sh
 bash ./linux-install-source.sh -y

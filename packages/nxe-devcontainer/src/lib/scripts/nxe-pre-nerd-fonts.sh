@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 # install DroidSansMono Nerd Font --> u can choose another at: https://www.nerdfonts.com/font-downloads
 echo "[-] Download fonts [-]"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 echo "Started running: scripts/init-postCreate-base.sh"
 
 # ~/nxe.log
@@ -18,9 +18,9 @@ su $USERNAME -c `sudo ln -s "${NXE_SHELL}/.zshrc" "${NXE_HOME}/.zshrc"`
 
 # ignore files that we persist across sessions
 nohup `sudo chown -R ${USERNAME}:${USERNAME} ${NXE_WS}/.devcontainer` >> "${NXE_HOME}/nxe.log" 2>&1 &
-su $USERNAME -c `sudo mkdir -p "${NXE_WS_DEVCONTAINER}/persist/"`
-su $USERNAME -c `sudo touch "${NXE_WS_DEVCONTAINER}/persist/.gitignore"`
-su $USERNAME -c `sudo echo "*" > "${NXE_WS_DEVCONTAINER}/persist/.gitignore"`
+su $USERNAME -c `mkdir -p "${NXE_WS_DEVCONTAINER}/persist/"`
+su $USERNAME -c `touch "${NXE_WS_DEVCONTAINER}/persist/.gitignore"`
+su $USERNAME -c `echo "*" > "${NXE_WS_DEVCONTAINER}/persist/.gitignore"`
 
 # add dapr cli in case 'the people' want it :)
 su $USERNAME -c `source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh"` && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart

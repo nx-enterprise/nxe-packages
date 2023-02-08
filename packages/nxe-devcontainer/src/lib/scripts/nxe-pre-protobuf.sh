@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 # install protobuf
 sudo apt update --allow-insecure-repositories

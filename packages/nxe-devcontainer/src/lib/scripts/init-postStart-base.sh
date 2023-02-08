@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 echo "Started running: scripts/init-postStart-base.sh"
 
 # scripts

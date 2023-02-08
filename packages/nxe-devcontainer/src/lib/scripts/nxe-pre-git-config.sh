@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 sudo git config --system --add safe.directory '*'
 sudo git config --system credential.useHttpPath true

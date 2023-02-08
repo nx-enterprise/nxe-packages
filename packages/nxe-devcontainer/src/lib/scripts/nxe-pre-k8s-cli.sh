@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 sudo apt-get update --allow-insecure-repositories
 sudo apt-get install -y ca-certificates curl

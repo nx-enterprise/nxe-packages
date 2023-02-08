@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
   # these scripts will run silently as background processes until finished
   nohup `sudo chown -R ${USERNAME}:${USERNAME} "${NXE_WS}/.devcontainer"` >> "${NXE_HOME}/nxe.log" 2>&1 &

@@ -1,5 +1,5 @@
 #!/bin/bash
-pushd $NXE_SCRIPTS # safely execute scripts from /tmp/scripts
+pushd /tmp # safely execute scripts from /tmp/scripts
 
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 # install if any of these commands fail
