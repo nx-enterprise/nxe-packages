@@ -33,8 +33,9 @@ if [ -e $NXE_WS_DEVCONTAINER/persist/kubeconfig.yaml ]; then sed -i 's/127.0.0.1
 if [ ! -e $NXE_WS/bin/dotenv-linter ]; then curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s; fi
 
 # security stuff so ZSH doesn't yell at us
-sudo chown -R $USERNAME /usr/local
-sudo chmod -R 755 /usr/local
+nohup sh -c 'sudo chown -R $USERNAME /usr/local' >$NXE_HOME/nxe.log 2>&1 &
+nohup sh -c 'sudo chmod -R 755 /usr/local' >$NXE_HOME/nxe.log 2>&1 &
+
 # sudo chmod -R 755 "${NXE_HOME}/.oh-my-zsh/"
 
 # Set name of the theme to load --- if set to "random", it will
