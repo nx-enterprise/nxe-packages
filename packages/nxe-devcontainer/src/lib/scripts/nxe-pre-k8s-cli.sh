@@ -9,6 +9,9 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 sudo apt-get update
 sudo apt-get install -y kubectl
 
+# install k9s
+curl -sS https://webinstall.dev/k9s | bash
+
 # install helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh

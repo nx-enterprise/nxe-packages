@@ -14,4 +14,6 @@ pushd /tmp # safely execute scripts from /tmp/scripts
   nohup sh -c 'sudo chown -R $USERNAME:$USERNAME $NXE_WS/node_modules' >$NXE_HOME/nxe.log 2>&1 &
   nohup sh -c 'sudo chown -R $USERNAME:$USERNAME $NXE_WS/tools' >$NXE_HOME/nxe.log 2>&1 &
 
+  chmod 710 $NXE_WS_DEVCONTAINER/persist/kubeconfig.yaml
+
 popd

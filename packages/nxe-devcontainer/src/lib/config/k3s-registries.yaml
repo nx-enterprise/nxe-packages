@@ -1,0 +1,4 @@
+mirrors:
+  "nxe-k3s-registry:5000":
+    endpoint:
+      - http://nxe-k3s-registry:5000

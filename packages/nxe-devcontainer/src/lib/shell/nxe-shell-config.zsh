@@ -1,8 +1,14 @@
 #!/bin/zsh
 
+export ZSH_CACHE_DIR=$ZSH/cache
+export FPATH=$ZSH/cache/completions:$FPATH
+export ZSH_COMPDUMP=$NXE_WS_DEVCONTAINER/persist/zsh/.zcompdump
+export HISTFILE=$NXE_WS_DEVCONTAINER/persist/zsh/.zsh_history
+
+compinit -d $ZSH_COMPDUMP
+
 setopt INC_APPEND_HISTORY
 # location of history file
-HISTFILE="${NXE_WS_DEVCONTAINER}/persist/.zsh_history"
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth

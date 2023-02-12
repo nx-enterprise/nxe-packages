@@ -15,20 +15,24 @@ mkdir -p $NXE_HOME/bin/
 # # ZSH + oh my zsh
 # ########################################
 rm $NXE_HOME/.zshrc
+rm $NXE_HOME/.antigenrc
 ln -s $NXE_SHELL/.zshrc $NXE_HOME/.zshrc
+ln -s $NXE_SHELL/.antigenrc $NXE_HOME/.antigenrc
 
 source $NXE_HOME/.zshrc
 
 # ignore files that we persist across sessions
-nohup 'sudo chown -R $USERNAME:$USERNAME $NXE_WS/.devcontainer' > $NXE_HOME/nxe.log 2>&1 &
+sudo chown -R $USERNAME:$USERNAME $NXE_WS/.devcontainer
 mkdir -p $NXE_WS_DEVCONTAINER/persist/
 touch $NXE_WS_DEVCONTAINER/persist/.gitignore
 echo "*" > $NXE_WS_DEVCONTAINER/persist/.gitignore
 
 # add dapr cli in case 'the people' want it :)
 source $NXE_SCRIPTS/nxe-post-dapr-cli.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart
+source $NXE_SCRIPTS/nxe-post-k3s.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-k3s.zsh" # before postStart
 
 # install PNPM and Node stuff
+sudo chown -R $USERNAME:$USERNAME $NXE_WS/node_modules
 source $NXE_SCRIPTS/nxe-post-pnpm.zsh             # install pnpm
 source $NXE_SCRIPTS/nxe-post-node-packages.zsh    # node stuff
 

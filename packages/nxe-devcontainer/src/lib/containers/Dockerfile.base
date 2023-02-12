@@ -3,13 +3,16 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
 
 ARG NXE_SCRIPTS
 ARG NXE_SHELL
+ARG NXE_CONFIG
 ARG NXE_DAPR
 
 # Load up
 WORKDIR /
+RUN mkdir -p $NXE_CONFIG
 RUN mkdir -p $NXE_SCRIPTS
 RUN mkdir -p $NXE_SHELL
 RUN mkdir -p $NXE_DAPR/components
+COPY config/* $NXE_CONFIG
 COPY scripts/* $NXE_SCRIPTS
 COPY shell/* $NXE_SHELL
 COPY dapr/components/* $NXE_DAPR/components

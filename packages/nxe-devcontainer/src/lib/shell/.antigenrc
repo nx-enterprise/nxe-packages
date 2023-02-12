@@ -1,0 +1,41 @@
+#!/bin/zsh
+
+# lets start
+antigen use oh-my-zsh
+
+# theme
+antigen theme romkatv/powerlevel10k
+
+# bundles
+antigen bundles <<EOBUNDLES
+    kubectl
+    kubectl-fzf
+    common-aliases
+    docker
+    encode64
+    gem
+    git
+    git-extras
+    gnu-utils
+    npm
+    nix
+    history
+    jsontools
+    helmfile
+    gitignore
+    colorize
+    composer
+    perms
+    python
+    rails
+    ruby
+    zsh-users/zsh-completions
+    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-autosuggestions
+    zsh-history-substring-search
+    command-not-found
+    unixorn/autoupdate-antigen.zshplugin
+EOBUNDLES
+
+# Tell Antigen that you are done.
+antigen apply

@@ -12,7 +12,6 @@ source "${NXE_SHELL}/nxe-shell-autocomplete.zsh"      # import default zsh autoc
 ## optional things
 # source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh"
 # source "${NXE_SCRIPTS}/nxe-post-node-packages.zsh" # node stuff
-# source "${NXE_SHELL}/nxe-shell-k8s.zsh"      # import k8s kubeconfig and zsh autocomplete shell enhancements
 
 
 echo "Finished running: scripts/init-postStart-base.sh"
