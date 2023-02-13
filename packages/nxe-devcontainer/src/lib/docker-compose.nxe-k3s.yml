@@ -1,5 +1,16 @@
 version: '3.9'
 services:
+  nxe-k3s-proxy:
+    image: caddy:alpine
+    restart: unless-stopped
+    volumes:
+      - ~/.nxe/certs:/root/certs # to sync mkcert certificates to Caddy
+      - ${PWD}/nxe-packages/packages/nxe-devcontainer/src/lib/config/k3s-proxy.Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - nxe-k3s-server
   nxe-k3s-server:
     image: 'rancher/k3s:${K3S_VERSION:-latest}'
     command: server
@@ -21,14 +32,15 @@ services:
       - K3S_KUBECONFIG_OUTPUT=${NXE_K3S_OUT}/kubeconfig.yaml
       - K3S_KUBECONFIG_MODE=666
     volumes:
+      - ${PWD}/nxe-packages/packages/nxe-devcontainer/src/lib/config/k3s-traefik-config.yaml:/var/lib/rancher/k3s/server/manifests/traefik-config.yaml
       - nxe-k3s-etc:/etc/rancher/k3s
       - nxe-k3s-data:/var/lib/rancher/k3s
       # This is just so that we get the kubeconfig file out
       - nxe-config:${NXE_K3S_OUT}
     ports:
       - 6443:6443 # Kubernetes API Server
-      - 80:80 # Ingress controller port 80
-      - 443:443 # Ingress controller port 443
+      - 30080:30080 # Ingress controller port 80
+      - 30443:30443 # Ingress controller port 443
     deploy:
       resources:
         limits:
@@ -71,7 +83,7 @@ services:
   nxe-k3s-registry:
     image: "registry:2"
     ports:
-      - 5003:5000
+      - 30060:5000
 
 networks:
   default:

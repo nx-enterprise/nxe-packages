@@ -1,0 +1,36 @@
+#--------------------------------------------------------------------------
+# Caddy configuration
+# https://caddyserver.com/docs/caddyfile/options
+#--------------------------------------------------------------------------
+
+{
+  debug
+  local_certs
+  auto_https disable_redirects
+  admin 0.0.0.0:2019
+}
+
+#--------------------------------------------------------------------------
+# Reverse proxy
+# https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
+#--------------------------------------------------------------------------
+
+# HTTP site block
+*.nxe.localhost:80 {
+  reverse_proxy nxe-k3s-server:30080
+}
+
+# HTTPS site block
+*.nxe.localhost:443 {
+  #tls internal
+  tls /root/certs/_wildcard.nxe.localhost.pem /root/certs/_wildcard.nxe.localhost-key.pem
+  reverse_proxy {
+		to nxe-k3s-server:30443
+		transport http {
+			tls
+			tls_insecure_skip_verify
+			read_buffer 8192
+		}
+
+	}
+}

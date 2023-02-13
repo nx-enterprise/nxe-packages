@@ -15,7 +15,7 @@ services:
         soft: 65535
         hard: 65535
     volumes:
-      - ..:/nxe-apps-ws:cached
+      - ..:${NXE_WS}:cached
       # Forwards the local Docker socket to the container.
       # - /var/run/docker.sock:/var/run/docker-host.sock
       # - nxe-config:${NXE_WS_DEVCONTAINER}/persist # configuration we want to persist
@@ -44,7 +44,7 @@ services:
   #     context: .
   #     dockerfile: Dockerfile
   #   volumes:
-  #     - ..:/nxe-apps-ws:cached
+  #     - ..:${NXE_WS}:cached
 
   #   # Uncomment the next four lines if you will use a ptrace-based debuggers like C++, Go, and Rust.
   #   # cap_add:

@@ -13,7 +13,7 @@ services:
         soft: 65535
         hard: 65535
     volumes:
-      - ..:/nxe-apps-ws:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
+      - ..:${NXE_WS}:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
       # Forwards the local Docker socket to the container.
       - /var/run/docker.sock:/var/run/docker-host.sock
       - nxe-k3s-etc:${NXE_WS_DEVCONTAINER}/persist/k3s
