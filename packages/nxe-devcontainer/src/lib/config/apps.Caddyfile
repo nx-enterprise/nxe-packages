@@ -16,30 +16,7 @@
 #--------------------------------------------------------------------------
 
 # HTTP site block
-*.nxe.localhost:80 {
-  reverse_proxy nxe-k3s-server:30080
+:5443 {
+  tls internal
+  reverse_proxy nxe-k3s-registry:5000
 }
-
-# HTTPS site block
-*.nxe.localhost:443 {
-
-  tls /root/certs/_wildcard.nxe.localhost.pem /root/certs/_wildcard.nxe.localhost-key.pem
-
-  # @supervisor host supervisor.nxe.localhost
-	# handle @supervisor {
-	# 	reverse_proxy nxe-apps:30055
-	# }
-
-  # Fallback for otherwise unhandled domains
-	handle {
-		reverse_proxy {
-			to nxe-k3s-server:30443
-      transport http {
-        tls
-        tls_insecure_skip_verify
-        read_buffer 8192
-      }
-    }
-	}
-}
-

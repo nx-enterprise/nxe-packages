@@ -7,3 +7,4 @@
 # not handled by antigen
 cat <(dapr completion zsh) > $ZSH/cache/completions/_dapr # magic
 cat <(helm completion zsh) > $ZSH/cache/completions/_helm # magic
+cat <(caddy completion zsh) > $ZSH/cache/completions/_caddy # magic

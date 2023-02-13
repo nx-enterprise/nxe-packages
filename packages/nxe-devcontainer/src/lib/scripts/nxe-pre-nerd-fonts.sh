@@ -29,6 +29,6 @@ echo "done!"
 # Ubuntu
 # UbuntuMono
 
-source $NXE_SCRIPTS/nxe-pre-cleanup.sh
+exec $NXE_SCRIPTS/nxe-pre-cleanup.sh
 
 popd

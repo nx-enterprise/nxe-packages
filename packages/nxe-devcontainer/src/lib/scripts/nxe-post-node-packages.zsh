@@ -8,5 +8,6 @@ export PYTHONUNBUFFERED=1
 
 pnpm -g add pnpm@latest npm@latest env-cmd nx rimraf prettier
 corepack prepare pnpm@latest --activate
+pnpm install
 
 popd

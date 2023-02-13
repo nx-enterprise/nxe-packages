@@ -13,7 +13,6 @@ antigen bundles <<EOBUNDLES
     common-aliases
     docker
     encode64
-    gem
     git
     git-extras
     gnu-utils
@@ -24,18 +23,17 @@ antigen bundles <<EOBUNDLES
     helmfile
     gitignore
     colorize
-    composer
     perms
     python
-    rails
-    ruby
     zsh-users/zsh-completions
     zsh-users/zsh-syntax-highlighting
     zsh-users/zsh-autosuggestions
-    zsh-history-substring-search
+    zsh-users/zsh-history-substring-search
     command-not-found
     unixorn/autoupdate-antigen.zshplugin
 EOBUNDLES
+
+# gem rails ruby composer
 
 # Tell Antigen that you are done.
 antigen apply

@@ -2,7 +2,7 @@
 pushd /tmp # safely execute scripts from /tmp/scripts
 
 # required to run this at startup
-source "${NXE_SCRIPTS}/init-postCreate-base.sh" && echo "Sourced ${NXE_SCRIPTS}/init-postCreate-base.sh"
+source $NXE_SCRIPTS/init-postCreate-base.sh && echo "Sourced ${NXE_SCRIPTS}/init-postCreate-base.sh"
 
 
 ##

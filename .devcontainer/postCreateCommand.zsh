@@ -2,14 +2,13 @@
 
 # this file is initialized after the container is built
 # su vscode -c 'xxx' 2>&1
-set -ex
+set -e
 
 # required to run this at startup
-source "${NXE_SCRIPTS}/init-postCreate-base.sh" && echo "Sourced ${NXE_SCRIPTS}/init-postCreate-base.sh"
+source $NXE_SCRIPTS/init-postCreate-base.sh && echo "Sourced ${NXE_SCRIPTS}/init-postCreate-base.sh"
 
 # optionally, run your own
 # source "${NXE_SCRIPTS}/nxe-pre-protobuf.sh" && echo "Sourced ${NXE_SCRIPTS}/nxe-pre-protobuf.sh"
-
 
 #dapr uninstall --all && dapr init
 

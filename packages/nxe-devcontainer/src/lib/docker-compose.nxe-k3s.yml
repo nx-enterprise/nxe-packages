@@ -11,6 +11,7 @@ services:
       - 443:443
     depends_on:
       - nxe-k3s-server
+      - nxe-apps
   nxe-k3s-server:
     image: 'rancher/k3s:${K3S_VERSION:-latest}'
     command: server
@@ -33,7 +34,7 @@ services:
       - K3S_KUBECONFIG_MODE=666
     volumes:
       - ${PWD}/nxe-packages/packages/nxe-devcontainer/src/lib/config/k3s-traefik-config.yaml:/var/lib/rancher/k3s/server/manifests/traefik-config.yaml
-      - nxe-k3s-etc:/etc/rancher/k3s
+      - ${PWD}/nxe-packages/packages/nxe-devcontainer/src/lib/config/k3s-registries.yaml:/etc/rancher/k3s/registries.yaml
       - nxe-k3s-data:/var/lib/rancher/k3s
       # This is just so that we get the kubeconfig file out
       - nxe-config:${NXE_K3S_OUT}
@@ -69,7 +70,7 @@ services:
       - K3S_URL=https://nxe-k3s-server:6443
       - K3S_TOKEN=${NXE_K3S_TOKEN}
     volumes:
-      - nxe-k3s-etc:/etc/rancher/k3s
+      - ${PWD}/nxe-packages/packages/nxe-devcontainer/src/lib/config/k3s-registries.yaml:/etc/rancher/k3s/registries.yaml
     deploy:
       mode: replicated
       resources:
@@ -82,7 +83,7 @@ services:
   nxe-k3s-registry:
     image: "registry:2"
     ports:
-      - 30060:5000
+      - 5443:5000
 
 networks:
   default:
@@ -95,4 +96,3 @@ volumes:
   nxe-cache-node:
   nxe-cache-bin:
   nxe-k3s-data: {}
-  nxe-k3s-etc:

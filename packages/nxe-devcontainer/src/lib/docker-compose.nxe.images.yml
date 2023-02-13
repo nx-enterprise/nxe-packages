@@ -20,6 +20,7 @@ services:
       context: .
       dockerfile: containers/Dockerfile.kitchen-sink
       args:
+        NXE_CONFIG: ${NXE_CONFIG}
         NXE_SCRIPTS: ${NXE_SCRIPTS}
         NXE_SHELL: ${NXE_SHELL}
     environment:

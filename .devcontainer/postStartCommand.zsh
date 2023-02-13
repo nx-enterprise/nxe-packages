@@ -1,8 +1,8 @@
 #!/bin/zsh
-set -ex
+set -e
 
 # required to source this
-source "${NXE_SCRIPTS}/init-postStart-base.sh" && echo "Sourced ${NXE_SCRIPTS}/init-postStart-base.sh"
+source $NXE_SCRIPTS/init-postStart-base.sh && echo "Sourced ${NXE_SCRIPTS}/init-postStart-base.sh"
 
 # reference: https://unix.stackexchange.com/a/477909
 # autoload -Uz compinit

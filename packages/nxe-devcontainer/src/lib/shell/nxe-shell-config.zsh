@@ -2,6 +2,7 @@
 
 export ZSH_CACHE_DIR=$ZSH/cache
 export FPATH=$ZSH/cache/completions:$FPATH
+mkdir -p $NXE_WS_DEVCONTAINER/persist/zsh/
 export ZSH_COMPDUMP=$NXE_WS_DEVCONTAINER/persist/zsh/.zcompdump
 export HISTFILE=$NXE_WS_DEVCONTAINER/persist/zsh/.zsh_history
 

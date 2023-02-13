@@ -3,7 +3,7 @@
 pushd /tmp
 
 # Install Dapr to our workspaces' bin folder
-wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
+wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash > /dev/null 2>&1
 dapr init --slim
 
 # remove old config

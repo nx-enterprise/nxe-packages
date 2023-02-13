@@ -7,6 +7,6 @@ git-credential-manager-core configure
 rm ./linux-install-source.sh
 rm -Rf git-credential-manager
 
-source $NXE_SCRIPTS/nxe-pre-cleanup.sh
+exec $NXE_SCRIPTS/nxe-pre-cleanup.sh
 
 popd

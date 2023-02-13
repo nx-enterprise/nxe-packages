@@ -16,7 +16,6 @@ services:
       - ..:${NXE_WS}:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
       # Forwards the local Docker socket to the container.
       - /var/run/docker.sock:/var/run/docker-host.sock
-      - nxe-k3s-etc:${NXE_WS_DEVCONTAINER}/persist/k3s
       - nxe-k3s-data:/var/lib/rancher/k3s
       - nxe-config:${NXE_WS_DEVCONTAINER}/persist # configuration we want to persist
       - nxe-cache-node:${NXE_WS}/node_modules # node modules
@@ -51,5 +50,3 @@ volumes:
   nxe-cache-node:
   nxe-cache-bin:
   nxe-k3s-data: {}
-  nxe-k3s-etc:
-
