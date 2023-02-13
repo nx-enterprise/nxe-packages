@@ -44,8 +44,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.00'
-          memory: 1024M
+          cpus: '3.00'
+          memory: 3072M
         reservations:
           cpus: '0.50'
           memory: 256M
@@ -72,7 +72,6 @@ services:
       - nxe-k3s-etc:/etc/rancher/k3s
     deploy:
       mode: replicated
-      replicas: 2
       resources:
         limits:
           cpus: '1.50'
