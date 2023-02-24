@@ -42,8 +42,6 @@
       "options": {
         "context": "packages/nxe-devcontainer/src/lib",
         "file": "packages/nxe-devcontainer/src/lib/containers/Dockerfile.base",
-        "platforms": ["linux/amd64", "linux/arm64"],
-        "push": true,
         "metadata": {
           "images": ["ghcr.io/nx-enterprise/nxe-devcontainer"],
           "tags": [
@@ -56,7 +54,9 @@
             "type=semver,pattern={{major}}",
             "type=sha"
           ]
-        }
+        },
+        "platforms": ["linux/amd64", "linux/arm64"],
+        "push": true
       }
     },
     "lint": {
