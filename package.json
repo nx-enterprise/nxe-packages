@@ -1,5 +1,5 @@
 {
-  "name": "nx-enterprise",
+  "name": "@nx-enterprise/nxe-packages",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
@@ -64,6 +64,7 @@
     "@nx-dotnet/core": "1.19.1",
     "@nx-go/nx-go": "^2.7.0",
     "@nx-plus/docusaurus": "15.0.0-rc.0",
+    "@nx-tools/container-metadata": "^4.0.3",
     "@nx-tools/nx-container": "^4.0.3",
     "@nxrs/cargo": "^0.3.3",
     "@schematics/angular": "~15.1.0",
