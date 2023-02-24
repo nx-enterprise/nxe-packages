@@ -70,8 +70,6 @@ else
   exit 1
 fi
 
-ls -la
-
 # Extract golang binary
 tar -vxzf go.tgz && rm go.tgz
 cp go/bin/* /usr/local/bin/
