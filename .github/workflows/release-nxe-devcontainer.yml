@@ -1,19 +1,18 @@
 on:
   push:
-    branches: [feat/ci]
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       reason:
-        description: 'Why ?'
+        description: 'Release new containers on ghcr.io when there is a new commit on main.'
         required: false
         default: ''
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions: "write-all"
+    permissions: 'write-all'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
