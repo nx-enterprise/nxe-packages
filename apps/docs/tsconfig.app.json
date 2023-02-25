@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": []
+  },
+  "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"],
+  "extends": "./tsconfig.json",
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.d.ts", "src/app/routes/**/*.ts"]
+}

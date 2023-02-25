@@ -1,20 +1,10 @@
-ARG VARIANT=0.203.2-ubuntu-22.04
-FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT} as builder
+ARG VARIANT=jammy
+FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
 
-RUN apt update && sudo apt install golang git -y
-RUN cd /tmp && git clone https://github.com/ochinchina/supervisord.git supervisord
-RUN cd /tmp/supervisord && sed -i 's/Go-Supervisor/NXE Devcontainer Supervisor/g' webgui/index.html webgui/index.html.modify
-RUN cd /tmp/supervisord && go generate && GOOS=linux go build -tags release -a -ldflags "-linkmode external -extldflags -static" -o /usr/local/bin/supervisord
-
-FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT} as final
-
-# bring over our supervisor
-COPY --from=builder /usr/local/bin/supervisord /usr/local/bin/supervisord
-
-ARG NXE_SCRIPTS
-ARG NXE_SHELL
-ARG NXE_CONFIG
-ARG NXE_DAPR
+ARG NXE_SCRIPTS=/nxe/scripts
+ARG NXE_SHELL=/nxe/shell
+ARG NXE_CONFIG=/nxe/config
+ARG NXE_DAPR=/nxe/dapr
 
 # Load up
 WORKDIR /
@@ -29,7 +19,9 @@ COPY dapr/components/* $NXE_DAPR/components
 COPY dapr/config.yaml $NXE_DAPR
 
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh # git configuration
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh    # cleanup
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-golang.sh     # golang install
+RUN cd /tmp && git clone https://github.com/ochinchina/supervisord.git supervisord && cd /tmp/supervisord && sed -i 's/Go-Supervisor/NXE Devcontainer Supervisor/g' webgui/index.html webgui/index.html.modify && go generate && GOOS=linux go build -tags release -a -ldflags "-linkmode external -extldflags -static" -o /usr/local/bin/supervisord && rm -Rf /tmp/supervisord
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh # cleanup
 
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access
 # to the Docker socket. The script will also execute CMD as needed.
