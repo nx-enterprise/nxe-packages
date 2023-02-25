@@ -45,6 +45,7 @@
         "metadata": {
           "images": ["ghcr.io/nx-enterprise/nxe-devcontainer"],
           "tags": [
+            "base",
             "type=schedule",
             "type=ref,event=branch",
             "type=ref,event=tag",
