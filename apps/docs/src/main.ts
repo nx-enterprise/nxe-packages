@@ -1,8 +1,13 @@
 import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
+import { withInMemoryScrolling } from '@angular/router';
 import { provideFileRouter } from '@analogjs/router';
+import { provideContent, withMarkdownRenderer } from '@analogjs/content';
+import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideFileRouter()],
+  providers: [
+    provideFileRouter(withInMemoryScrolling({ anchorScrolling: 'enabled' })),
+    provideContent(withMarkdownRenderer()),
+  ],
 }).catch((err) => console.error(err));
