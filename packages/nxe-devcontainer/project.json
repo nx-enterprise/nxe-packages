@@ -60,6 +60,29 @@
         "push": true
       }
     },
+    "container-ci": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "context": "packages/nxe-devcontainer/src/lib",
+        "file": "packages/nxe-devcontainer/src/lib/containers/Dockerfile.base",
+        "metadata": {
+          "images": ["ghcr.io/nx-enterprise/nxe-devcontainer"],
+          "tags": [
+            "base:latest",
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=semver,pattern={{major}}.{{minor}}",
+            "type=semver,pattern={{major}}",
+            "type=sha"
+          ]
+        },
+        "platforms": ["linux/amd64", "linux/arm64"],
+        "push": false
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
