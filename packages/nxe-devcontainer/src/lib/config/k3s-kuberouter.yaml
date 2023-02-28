@@ -36,7 +36,7 @@ spec:
         - "--advertise-external-ip=true"
         - "--advertise-loadbalancer-ip=true"
         - "--advertise-pod-cidr=true"
-        - "--service-cluster-ip-range=172.172.64.0/18"
+        - "--service-cluster-ip-range=244.0.0.0/12"
         env:
         - name: NODE_NAME
           valueFrom:

@@ -17,20 +17,19 @@ services:
     command:
       - 'server'
       - '--flannel-backend=none'
-      - '--disable=traefik'
-      - '--disable=servicelb'
-      - '--disable=local-storage'
-      #- '--disable-cloud-controller'
-      - '--disable-kube-proxy'
       - '--disable-network-policy'
+      - '--disable-kube-proxy'
+      #- '--disable=traefik'
+      #- '--disable=servicelb'
+      #- '--disable=local-storage'
+      #- '--disable-cloud-controller'
       - '--tls-san=nxe-k3s-server'
-      - '--service-cidr=172.172.64.0/18'
-      - '--cluster-cidr=172.172.128.0/17'
-      - '--cluster-dns=172.172.64.10'
-      - '--bind-address=172.172.0.250'
-      - '--node-ip=172.172.0.250'
-      - '--node-external-ip=172.172.0.250'
-      - '--node-taint=node-role.kubernetes.io/master=true:NoSchedule'
+      - '--service-cidr=244.0.0.0/12'
+      - '--cluster-cidr=244.16.0.0/12'
+      - '--cluster-dns=244.0.0.10'
+      - '--bind-address=240.0.0.250'
+      - '--node-ip=240.0.0.250'
+      - '--node-external-ip=240.0.0.250'
     tmpfs:
       - /run
       - /var/run
@@ -43,7 +42,7 @@ services:
     restart: always
     networks:
       default:
-        ipv4_address: 172.172.0.250
+        ipv4_address: 240.0.0.250
     env_file:
       - ../.env # from the context of <workspace>/.devcontainer
     environment:

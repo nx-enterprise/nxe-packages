@@ -48,6 +48,8 @@ source $NXE_SCRIPTS/nxe-post-k3s.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-k3
 # install PNPM and Node stuff
 sudo chown -R $USERNAME:$USERNAME $NXE_WS/node_modules
 exec $NXE_SCRIPTS/nxe-post-node-packages.zsh    # node stuff
+corepack prepare pnpm@latest --activate
+pnpm install
 
 # set permissions
 nohup sh -c 'sudo chown -R $USERNAME:$USERNAME $NXE_HOME' > $NXE_HOME/nxe.log 2>&1 &

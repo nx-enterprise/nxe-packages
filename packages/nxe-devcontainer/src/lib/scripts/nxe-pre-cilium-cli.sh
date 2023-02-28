@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 
 pushd /tmp # safely execute scripts from /tmp/scripts
 
@@ -7,7 +7,7 @@ OS=$(uname -s)
 ARCH=$(uname -m)
 
 if [ -z "$NXE_CILIUM_CLI_VERSION" ]; then
-  NXE_CILIUM_CLI_VERSION=0.13.0
+  NXE_CILIUM_CLI_VERSION=0.12.13
 fi
 CILIUM_CLI_VERSION=v$NXE_CILIUM_CLI_VERSION
 

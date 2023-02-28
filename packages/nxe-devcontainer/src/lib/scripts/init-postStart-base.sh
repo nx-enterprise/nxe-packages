@@ -13,7 +13,7 @@ source $NXE_SCRIPTS/nxe-post-permissions.zsh      # update permissions on each s
 source $NXE_SHELL/nxe-shell-autocomplete.zsh      # import default zsh autocomplete shell enhancements
 
 # kubernetes stuff
-source $NXE_SCRIPTS/nxe-post-k3s-cilium.zsh
+source $NXE_SCRIPTS/nxe-post-k3s-cilium-nohup.zsh
 
 ## optional things
 # source "${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh"

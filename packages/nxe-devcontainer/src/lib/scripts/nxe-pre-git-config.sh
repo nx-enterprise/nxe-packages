@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 pushd /tmp # safely execute scripts from /tmp/scripts
 

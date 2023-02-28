@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 
 pushd /tmp # safely execute scripts from /tmp/scripts
 
@@ -7,7 +7,7 @@ OS=$(uname -s)
 ARCH=$(uname -m)
 
 # Set golang version
-KUBECTLVERSION=1.26.0
+KUBECTLVERSION=1.25.0
 
 # Set download URL based on OS and ARCH
 case $OS in
@@ -84,13 +84,17 @@ su $USERNAME -c 'curl -sS https://webinstall.dev/k9s | bash'
 mv /root/.local/opt/k9s*/bin/k9s /usr/local/bin && chown -R $USERNAME:$USERNAME /usr/local/bin/k9s && chmod +x /usr/local/bin/k9s
 rm -Rf /root/.local/opt/k9s*
 
+# pathman
+mv /root/.local/opt/pathman*/bin/pathman /usr/local/bin && chown -R $USERNAME:$USERNAME /usr/local/bin/pathman && chmod +x /usr/local/bin/pathman
+rm -Rf /root/.local/opt/pathman*
+
 # install helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 
 # move webi
-mv /root/.local/opt/webi* /usr/local/bin/webi && chmod +x /usr/local/bin/webi && chown $USERNAME:$USERNAME /usr/local/bin/webi
+mv /root/.local/bin/webi /usr/local/bin/webi && chmod +x /usr/local/bin/webi && chown $USERNAME:$USERNAME /usr/local/bin/webi
 
 exec $NXE_SCRIPTS/nxe-pre-cleanup.sh
 

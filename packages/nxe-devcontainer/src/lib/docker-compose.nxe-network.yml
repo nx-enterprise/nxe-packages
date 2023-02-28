@@ -6,6 +6,6 @@ networks:
     ipam:
       driver: default
       config:
-      - subnet:  "172.172.0.0/16"
-        gateway: "172.172.0.1"
-        ip_range: "172.172.0.0/23"
+      - subnet:  "240.0.0.0/4"
+        gateway: "240.0.0.1"
+        ip_range: "240.0.0.0/23"

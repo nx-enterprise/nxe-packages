@@ -18,6 +18,11 @@ COPY shell/* $NXE_SHELL
 COPY dapr/components/* $NXE_DAPR/components
 COPY dapr/config.yaml $NXE_DAPR
 
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-os-common.sh    # common os packages
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-node.sh         # install node lts
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-pnpm.sh         # install pnpm
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-deno.sh         # install deno
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-bun.sh          # install bun
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh   # git configuration
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-golang.sh       # golang install
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-supervisord.sh  # supervisord install
@@ -26,7 +31,6 @@ RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cilium-cli.sh   # install cilium cli
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-caddy.sh        # install caddy
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-nerd-fonts.sh   # install Nerd Fonts
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-starship.sh     # install starship
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh   # git configuration
 RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh      # cleanup
 
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access
