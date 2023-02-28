@@ -18,6 +18,9 @@ mkdir -p $NXE_HOME/bin/
 if [ -f $NXE_HOME/.zshrc ]; then sudo rm $NXE_HOME/.zshrc; fi
 ln -s $NXE_SHELL/.zshrc $NXE_HOME/.zshrc
 
+if [ -f $NXE_HOME/.tmux.conf ]; then sudo rm $NXE_HOME/.tmux.conf; fi
+ln -s $NXE_SHELL/.tmux.conf $NXE_HOME/.tmux.conf
+
 if [ -f $NXE_HOME/.antigenrc ]; then sudo rm $NXE_HOME/.antigenrc; fi
 ln -s $NXE_SHELL/.antigenrc $NXE_HOME/.antigenrc
 
