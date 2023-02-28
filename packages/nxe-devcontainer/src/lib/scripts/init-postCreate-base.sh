@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -e
 
 pushd /tmp # safely execute scripts from /tmp/scripts
 echo "Started running: scripts/init-postCreate-base.sh"
@@ -16,6 +17,9 @@ mkdir -p $NXE_HOME/bin/
 # ########################################
 if [ -f $NXE_HOME/.zshrc ]; then sudo rm $NXE_HOME/.zshrc; fi
 ln -s $NXE_SHELL/.zshrc $NXE_HOME/.zshrc
+
+if [ -f $NXE_HOME/.tmux.conf ]; then sudo rm $NXE_HOME/.tmux.conf; fi
+ln -s $NXE_SHELL/.tmux.conf $NXE_HOME/.tmux.conf
 
 if [ -f $NXE_HOME/.antigenrc ]; then sudo rm $NXE_HOME/.antigenrc; fi
 ln -s $NXE_SHELL/.antigenrc $NXE_HOME/.antigenrc
@@ -37,13 +41,18 @@ touch $NXE_WS_DEVCONTAINER/persist/.gitignore
 echo "*" > $NXE_WS_DEVCONTAINER/persist/.gitignore
 
 # add dapr cli in case 'the people' want it :)
-exec $NXE_SCRIPTS/nxe-post-dapr-cli.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart
-exec $NXE_SCRIPTS/nxe-post-k3s.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-k3s.zsh" # before postStart
+source $NXE_SCRIPTS/nxe-post-dapr-cli.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-dapr-cli.zsh" # before postStart
+
+# configure cilium on K3S
+echo "Configuring Cilium on K3S..."
+source "${NXE_SHELL}/nxe-shell-k3s.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-k3s.zsh"
+source $NXE_SCRIPTS/nxe-post-k3s.zsh && echo "Sourced ${NXE_SCRIPTS}/nxe-post-k3s.zsh" # before postStart
 
 # install PNPM and Node stuff
 sudo chown -R $USERNAME:$USERNAME $NXE_WS/node_modules
-exec $NXE_SCRIPTS/nxe-post-pnpm.zsh             # install pnpm
 exec $NXE_SCRIPTS/nxe-post-node-packages.zsh    # node stuff
+corepack prepare pnpm@latest --activate
+pnpm install
 
 # set permissions
 nohup sh -c 'sudo chown -R $USERNAME:$USERNAME $NXE_HOME' > $NXE_HOME/nxe.log 2>&1 &

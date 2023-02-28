@@ -38,11 +38,6 @@ services:
 
     # extra_hosts:
     #   - 'subdomain.domain:192.168.0.20'
-
-networks:
-  default:
-    name: ${NXE_NETWORK}
-
 volumes:
   nxe-config:
   nxe-cache-angular:

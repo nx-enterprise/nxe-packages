@@ -5,6 +5,19 @@
 # cat <(docker completion zsh) > $ZSH/cache/completions/_docker # magic
 
 # not handled by antigen
-cat <(dapr completion zsh) > $ZSH/cache/completions/_dapr # magic
-cat <(helm completion zsh) > $ZSH/cache/completions/_helm # magic
-cat <(caddy completion zsh) > $ZSH/cache/completions/_caddy # magic
+
+# if dapr command exists
+if command -v dapr &> /dev/null
+then
+    cat <(dapr completion zsh) > $ZSH/cache/completions/_dapr # magic
+fi
+# if helm command exists
+if command -v helm &> /dev/null
+then
+    cat <(helm completion zsh) > $ZSH/cache/completions/_helm # magic
+fi
+# if caddy command exists
+if command -v caddy &> /dev/null
+then
+    cat <(caddy completion zsh) > $ZSH/cache/completions/_caddy # magic
+fi

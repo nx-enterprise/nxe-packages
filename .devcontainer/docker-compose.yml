@@ -39,6 +39,7 @@ services:
 
     # extra_hosts:
     #   - 'subdomain.domain:192.168.0.20'
+
   # apps:
   #   build:
   #     context: .

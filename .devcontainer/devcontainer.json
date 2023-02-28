@@ -20,12 +20,15 @@
         "christian-kohler.path-intellisense",
         "dbaeumer.vscode-eslint",
         "oderwat.indent-rainbow",
-        "zxh404.vscode-proto3"
-      ]
+        "zxh404.vscode-proto3",
+        "GitHub.copilot",
+        "yzhang.markdown-all-in-one"
+	    ]
     }
   },
   "dockerComposeFile": [
     "docker-compose.yml",
+    "../packages/nxe-devcontainer/src/lib/docker-compose.nxe-network.yml",
     "../packages/nxe-devcontainer/src/lib/docker-compose.nxe.yml",
     "../packages/nxe-devcontainer/src/lib/docker-compose.nxe-dapr.yml",
     "../packages/nxe-devcontainer/src/lib/docker-compose.nxe-k3s.yml"

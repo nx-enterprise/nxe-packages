@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 pushd /tmp # safely execute scripts from /tmp/scripts
 
 curl -LO https://aka.ms/gcm/linux-install-source.sh
