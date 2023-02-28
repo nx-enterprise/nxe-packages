@@ -29,3 +29,11 @@ After cloning this repo: `make nxe.images.build`
 ## Known Issues
 
 We're anxiously waiting for this to close to speed up builds: [Incrementally copy features near the layer they're installed #382](https://github.com/devcontainers/cli/pull/382)
+
+
+| CIDR Range       | IP Range                        | Subnet Description    | Capacity        |
+| ---------------- | ------------------------------- | --------------------- | --------------- |
+| 172.172.0.0/23   | 172.172.0.0 - 172.172.1.255     | Docker containers     | 255 Nodes       |
+| --               | 172.172.2.0 - 172.172.63.255    | (reserved for future) | (future use)    |
+| 172.172.64.0/18  | 172.172.64.1 - 172.172.127.254  | K3S cluster pods      | 16,384 Services |
+| 172.172.128.0/17 | 172.172.128.1 - 172.172.255.254 | K3S cluster services  | 14,080 Pods     |

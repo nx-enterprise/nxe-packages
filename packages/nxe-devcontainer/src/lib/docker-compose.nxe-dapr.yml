@@ -21,7 +21,3 @@ services:
     image: 'openzipkin/zipkin'
     ports:
       - '30058:9411'
-
-networks:
-  default:
-    name: ${NXE_NETWORK}

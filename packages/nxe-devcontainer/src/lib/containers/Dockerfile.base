@@ -18,10 +18,16 @@ COPY shell/* $NXE_SHELL
 COPY dapr/components/* $NXE_DAPR/components
 COPY dapr/config.yaml $NXE_DAPR
 
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh # git configuration
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-golang.sh     # golang install
-RUN cd /tmp && git clone https://github.com/ochinchina/supervisord.git supervisord && cd /tmp/supervisord && sed -i 's/Go-Supervisor/NXE Devcontainer Supervisor/g' webgui/index.html webgui/index.html.modify && go generate && GOOS=linux go build -tags release -a -ldflags "-linkmode external -extldflags -static" -o /usr/local/bin/supervisord && rm -Rf /tmp/supervisord
-RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh # cleanup
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh   # git configuration
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-golang.sh       # golang install
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-supervisord.sh  # supervisord install
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-k8s-cli.sh      # install k8s cli
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cilium-cli.sh   # install cilium cli
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-caddy.sh        # install caddy
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-nerd-fonts.sh   # install Nerd Fonts
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-starship.sh     # install starship
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-git-config.sh   # git configuration
+RUN /bin/bash $NXE_SCRIPTS/nxe-pre-cleanup.sh      # cleanup
 
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access
 # to the Docker socket. The script will also execute CMD as needed.

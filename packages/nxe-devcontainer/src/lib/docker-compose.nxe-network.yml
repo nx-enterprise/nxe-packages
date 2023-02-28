@@ -1,0 +1,11 @@
+version: '3.9'
+networks:
+  default:
+    name: ${NXE_NETWORK}
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet:  "172.172.0.0/16"
+        gateway: "172.172.0.1"
+        ip_range: "172.172.0.0/23"

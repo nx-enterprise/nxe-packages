@@ -11,6 +11,7 @@
     "npm.publish.nxe-ddd-architecture": "npm publish ./dist/packages/nxe-ddd-architecture/ --access=public",
     "npm.publish.nxe-php": "npm publish ./dist/packages/nxe-php/ --access=public",
     "npm.publish.nxe-python": "npm publish ./dist/packages/nxe-python/ --access=public",
+    "npm.publish.nxe-devcontainer": "npm publish ./dist/packages/nxe-devcontainer/ --access=public",
     "npm.publish.nxe-python-fastapi": "npm publish ./dist/packages/nxe-python-fastapi/ --access=public",
     "prepare": "husky install",
     "release.major": "nx run workspace:version --skipProjectChangelog --syncVersions --tagPrefix '' --origin github --releaseAs=major",

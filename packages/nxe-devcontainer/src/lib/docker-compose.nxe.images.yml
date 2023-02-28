@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   base:
-    image: nx-enterprise/nxe-devcontainer:base
+    image: nx-enterprise/nxe-devcontainer:base-dev
     build:
       context: .
       dockerfile: containers/Dockerfile.base

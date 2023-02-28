@@ -1,5 +1,5 @@
 # Options: base, kitchen-sink
-ARG VARIANT=base
+ARG VARIANT=base-dev
 FROM nx-enterprise/nxe-devcontainer:${VARIANT}
 
 

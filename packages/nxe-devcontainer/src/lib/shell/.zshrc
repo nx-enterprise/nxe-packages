@@ -1,3 +1,6 @@
+#!/bin/zsh
+#set -e
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -21,20 +24,18 @@ export PNPM_HOME=/nxe-apps-ws/node_modules/.pnpm
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
-
-
 # source everything else
 source "${NXE_SHELL}/nxe-shell-aliases.zsh"
 source "${NXE_SHELL}/nxe-shell-p10k.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-p10k.zsh"
 source "${NXE_SHELL}/nxe-shell-zsh-config-loader.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-zsh-config-loader.zsh"
 source "${NXE_SHELL}/nxe-shell-autocomplete.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-autocomplete.zsh"
+source "${NXE_SHELL}/nxe-shell-k3s.zsh" && echo "Sourced ${NXE_SHELL}/nxe-shell-k3s.zsh"
 
-if [ -e $NXE_WS_DEVCONTAINER/persist/kubeconfig.yaml ]; then sed -i 's/127.0.0.1/nxe-k3s-server/' "${NXE_WS_DEVCONTAINER}/persist/kubeconfig.yaml"; else echo "Does not exist"; fi
 if [ ! -e $NXE_WS/bin/dotenv-linter ]; then curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s; fi
 
 # security stuff so ZSH doesn't yell at us
-nohup sh -c 'sudo chown -R $USERNAME /usr/local' >$NXE_HOME/nxe.log 2>&1 &
-nohup sh -c 'sudo chmod -R 755 /usr/local' >$NXE_HOME/nxe.log 2>&1 &
+#nohup sh -c 'sudo chown -R $USERNAME /usr/local' >$NXE_HOME/nxe.log 2>&1 &
+#nohup sh -c 'sudo chmod -R 755 /usr/local' >$NXE_HOME/nxe.log 2>&1 &
 
 # sudo chmod -R 755 "${NXE_HOME}/.oh-my-zsh/"
 
