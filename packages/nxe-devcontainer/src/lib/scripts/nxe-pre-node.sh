@@ -3,7 +3,7 @@ set -e
 
 pushd /tmp # safely execute scripts from /tmp/scripts
 
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
 apt update && export DEBIAN_FRONTEND=noninteractive \
   && apt -y install --no-install-recommends \
   nodejs

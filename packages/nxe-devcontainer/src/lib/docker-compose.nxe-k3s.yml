@@ -18,7 +18,7 @@ services:
       - 'server'
       - '--flannel-backend=none'
       - '--disable-network-policy'
-      - '--disable-kube-proxy'
+      #- '--disable-kube-proxy'
       #- '--disable=traefik'
       #- '--disable=servicelb'
       #- '--disable=local-storage'
