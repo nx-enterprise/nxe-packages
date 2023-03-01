@@ -18,7 +18,6 @@ if [ -z "$(kubectl get secret cilium-ca -n kube-system | grep cilium-ca)" ]; the
     --helm-set ipam.operator.clusterPoolIPv4PodCIDRList="{244.16.0.0/12}" \
     --helm-set bpf.masquerade=true \
     --helm-set hostFirewall.enabled=true \
-    --helm-set hostServices.enabled=true \
     --helm-set containerRuntime.integration=containerd \
     --helm-set ipam.mode=cluster-pool \
     --helm-set metrics.enabled="{dns:query;ignoreAAAA,drop,tcp,flow,icmp,http}" \
@@ -42,7 +41,6 @@ helm template cilium cilium/cilium \
   --set ipam.operator.clusterPoolIPv4PodCIDRList="{244.16.0.0/12}" \
   --set bpf.masquerade=true \
   --set hostFirewall.enabled=true \
-  --set hostServices.enabled=true \
   --set containerRuntime.integration=containerd \
   --set ipam.mode=cluster-pool \
   --set metrics.enabled="{dns:query;ignoreAAAA,drop,tcp,flow,icmp,http}" \
