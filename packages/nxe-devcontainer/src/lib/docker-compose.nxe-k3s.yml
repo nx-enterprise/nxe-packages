@@ -1,21 +1,53 @@
 version: '3.9'
 services:
+  nxe-apps:
+    volumes:
+      - nxe-k3s-data:/var/lib/rancher/k3s
+      - nxe-k3s-linuxkit-kheaders:/usr/src:ro
+      - nxe-k3s-debugfs:/sys/kernel/debug:rw
+  nxe-k3s-registry:
+    image: "registry:2"
+    networks:
+      default:
+        ipv4_address: 172.20.0.4
+      nxe-devnet-k3s:
+        ipv4_address: 172.20.2.4
+    depends_on:
+      - nxe-apps
+    ports:
+      - 5443:5000
   nxe-k3s-proxy:
     image: caddy:alpine
     restart: unless-stopped
     volumes:
       - ~/.nxe/certs:/root/certs # to sync mkcert certificates to Caddy
       - ../${NXE_DEVCONTAINER_LIB}/config/k3s-proxy.Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      default:
+        ipv4_address: 172.20.0.3
+      nxe-devnet-k3s:
+        ipv4_address: 172.20.2.3
     ports:
       - 80:80
       - 443:443
     depends_on:
-      - nxe-k3s-server
+      - nxe-k3s-server01
       - nxe-apps
-  nxe-k3s-server:
-    image: 'rancher/k3s:${K3S_VERSION:-latest}'
+  nxe-k3s-ebpf:
+    image: nx-enterprise/k3s-ebpf
+    networks:
+      default:
+        ipv4_address: 172.20.0.99
+    build:
+      context: .
+      dockerfile: ../${NXE_DEVCONTAINER_LIB}/containers/Dockerfile.k3s-ebpf
+    volumes:
+      - nxe-k3s-linuxkit-kheaders:/usr/src
+  nxe-k3s-server01:
+    image: 'rancher/k3s:latest'
     command:
       - 'server'
+      - '--egress-selector-mode=disabled' # https://github.com/cilium/cilium/issues/21405#issuecomment-1268887143
       - '--flannel-backend=none'
       - '--disable-network-policy'
       #- '--disable-kube-proxy'
@@ -23,13 +55,16 @@ services:
       #- '--disable=servicelb'
       #- '--disable=local-storage'
       #- '--disable-cloud-controller'
-      - '--tls-san=nxe-k3s-server'
-      - '--service-cidr=244.0.0.0/12'
-      - '--cluster-cidr=244.16.0.0/12'
-      - '--cluster-dns=244.0.0.10'
-      - '--bind-address=240.0.0.250'
-      - '--node-ip=240.0.0.250'
-      - '--node-external-ip=240.0.0.250'
+      - '--prefer-bundled-bin'
+      - '--tls-san=172.20.3.1'
+      - '--cluster-domain=cluster.local'
+      - '--service-cidr=10.0.0.0/16'
+      - '--cluster-cidr=10.244.0.0/16'
+      - '--cluster-dns=10.0.0.10'
+      - '--bind-address=172.20.3.1'
+      - '--node-ip=172.20.3.1'
+      - '--node-external-ip=172.20.3.1'
+      # - '--cluster-init'
     tmpfs:
       - /run
       - /var/run
@@ -38,11 +73,15 @@ services:
       nofile:
         soft: 65535
         hard: 65535
-    privileged: true
+    #pid: host
+    privileged: true # https://stackoverflow.com/a/63219871
     restart: always
+    depends_on:
+      - nxe-apps
+      - nxe-k3s-ebpf
     networks:
-      default:
-        ipv4_address: 240.0.0.250
+      nxe-devnet-k3s:
+        ipv4_address: 172.20.3.1
     env_file:
       - ../.env # from the context of <workspace>/.devcontainer
     environment:
@@ -53,11 +92,16 @@ services:
     volumes:
       - ../${NXE_DEVCONTAINER_LIB}/config/k3s-traefik-config.yaml:/var/lib/rancher/k3s/server/manifests/traefik-config.yaml
       - ../${NXE_DEVCONTAINER_LIB}/config/k3s-registries.yaml:/etc/rancher/k3s/registries.yaml
-      #- ../${NXE_DEVCONTAINER_LIB}/config/k3s-kube-vip.yaml:/var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+      # - ../${NXE_DEVCONTAINER_LIB}/config/k3s-kubevip-rbac.yaml:/var/lib/rancher/k3s/server/manifests/k3s-kubevip-rbac.yaml
+      # - ../${NXE_DEVCONTAINER_LIB}/config/k3s-kubevip-daemonset.yaml:/var/lib/rancher/k3s/server/manifests/k3s-kubevip-daemonset.yaml
+      # - ../${NXE_DEVCONTAINER_LIB}/config/k3s-kubevip-ccm.yaml:/var/lib/rancher/k3s/server/manifests/k3s-kubevip-ccm.yaml
       #- ../${NXE_DEVCONTAINER_LIB}/config/k3s-kuberouter.yaml:/var/lib/rancher/k3s/server/manifests/k3s-kuberouter.yaml
       - nxe-k3s-data:/var/lib/rancher/k3s
       # This is just so that we get the kubeconfig file out
       - nxe-config:${NXE_K3S_OUT}
+      - nxe-k3s-linuxkit-kheaders:/usr/src:ro
+      - /lib/modules/:/lib/modules:ro
+      - nxe-k3s-debugfs:/sys/kernel/debug:rw
     ports:
       - 6443:6443 # Kubernetes API Server
       - 30080:30080 # Ingress controller port 80
@@ -65,15 +109,130 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '3.00'
-          memory: 3072M
+          cpus: '2.00'
+          memory: 2048M
         reservations:
           cpus: '0.50'
           memory: 256M
-
+  # nxe-k3s-server02:
+  #   image: 'rancher/k3s:latest'
+  #   command:
+  #     - 'server'
+  #     - '--server'
+  #     - 'https://172.20.3.1:6443'
+  #     - '--egress-selector-mode=disabled' # https://github.com/cilium/cilium/issues/21405#issuecomment-1268887143
+  #     - '--flannel-backend=none'
+  #     - '--disable-network-policy'
+  #     #- '--disable-kube-proxy'
+  #     #- '--disable=traefik'
+  #     #- '--disable=servicelb'
+  #     #- '--disable=local-storage'
+  #     #- '--disable-cloud-controller'
+  #     - '--cluster-domain=cluster.local'
+  #     - '--service-cidr=10.0.0.0/16'
+  #     - '--cluster-cidr=10.244.0.0/16'
+  #     - '--cluster-dns=10.0.0.10'
+  #     - '--prefer-bundled-bin'
+  #     - '--bind-address=172.20.3.2'
+  #     - '--node-ip=172.20.3.2'
+  #     - '--node-external-ip=172.20.3.2'
+  #   tmpfs:
+  #     - /run
+  #     - /var/run
+  #   ulimits:
+  #     nproc: 65535
+  #     nofile:
+  #       soft: 65535
+  #       hard: 65535
+  #   #pid: host
+  #   privileged: true # https://stackoverflow.com/a/63219871
+  #   restart: always
+  #   depends_on:
+  #     - nxe-apps
+  #     - nxe-k3s-server01
+  #   networks:
+  #     nxe-devnet-k3s:
+  #       ipv4_address: 172.20.3.2
+  #   env_file:
+  #     - ../.env # from the context of <workspace>/.devcontainer
+  #   environment:
+  #     - K3S_VERSION=${NXE_K3S_VERSION}
+  #     - K3S_TOKEN=${NXE_K3S_TOKEN}
+  #   volumes:
+  #     - nxe-k3s-linuxkit-kheaders:/usr/src:ro
+  #     - /lib/modules/:/lib/modules:ro
+  #     - nxe-k3s-debugfs:/sys/kernel/debug:rw
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '2.00'
+  #         memory: 2048M
+  #       reservations:
+  #         cpus: '0.50'
+  #         memory: 256M
+  # nxe-k3s-server03:
+  #   image: 'rancher/k3s:latest'
+  #   command:
+  #     - 'server'
+  #     - '--server'
+  #     - 'https://172.20.3.1:6443'
+  #     - '--egress-selector-mode=disabled' # https://github.com/cilium/cilium/issues/21405#issuecomment-1268887143
+  #     - '--flannel-backend=none'
+  #     - '--disable-network-policy'
+  #     #- '--disable-kube-proxy'
+  #     #- '--disable=traefik'
+  #     #- '--disable=servicelb'
+  #     #- '--disable=local-storage'
+  #     #- '--disable-cloud-controller'
+  #     - '--cluster-domain=cluster.local'
+  #     - '--service-cidr=10.0.0.0/16'
+  #     - '--cluster-cidr=10.244.0.0/16'
+  #     - '--cluster-dns=10.0.0.10'
+  #     - '--prefer-bundled-bin'
+  #     - '--bind-address=172.20.3.3'
+  #     - '--node-ip=172.20.3.3'
+  #     - '--node-external-ip=172.20.3.3'
+  #   tmpfs:
+  #     - /run
+  #     - /var/run
+  #   ulimits:
+  #     nproc: 65535
+  #     nofile:
+  #       soft: 65535
+  #       hard: 65535
+  #   #pid: host
+  #   privileged: true # https://stackoverflow.com/a/63219871
+  #   restart: always
+  #   depends_on:
+  #     - nxe-apps
+  #     - nxe-k3s-server01
+  #     - nxe-k3s-server02
+  #   networks:
+  #     nxe-devnet-k3s:
+  #       ipv4_address: 172.20.3.3
+  #   env_file:
+  #     - ../.env # from the context of <workspace>/.devcontainer
+  #   environment:
+  #     - K3S_VERSION=${NXE_K3S_VERSION}
+  #     - K3S_TOKEN=${NXE_K3S_TOKEN}
+  #   volumes:
+  #     - nxe-k3s-linuxkit-kheaders:/usr/src:ro
+  #     - /lib/modules/:/lib/modules:ro
+  #     - nxe-k3s-debugfs:/sys/kernel/debug:rw
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '2.00'
+  #         memory: 2048M
+  #       reservations:
+  #         cpus: '0.50'
+  #         memory: 256M
   nxe-k3s-agent:
     image: 'rancher/k3s:${K3S_VERSION:-latest}'
-    command: agent --node-label=worker=true
+    command:
+      - 'agent'
+      - '--node-label=worker=true'
+      - '--prefer-bundled-bin'
     tmpfs:
       - /run
       - /var/run
@@ -82,18 +241,28 @@ services:
       nofile:
         soft: 65535
         hard: 65535
-    privileged: true
+    #pid: host
+    privileged: true # https://stackoverflow.com/a/63219871
     restart: always
     depends_on:
-      - nxe-k3s-server
+      - nxe-k3s-server01
+      # - nxe-k3s-server02
+      # - nxe-k3s-server03
+      - nxe-k3s-proxy
+      - nxe-apps
+    networks:
+      - nxe-devnet-k3s
     env_file:
       - ../.env # from the context of <workspace>/.devcontainer
     environment:
       - K3S_VERSION=${NXE_K3S_VERSION}
-      - K3S_URL=https://nxe-k3s-server:6443
+      - K3S_URL=https://172.20.3.1:6443
       - K3S_TOKEN=${NXE_K3S_TOKEN}
     volumes:
       - ../${NXE_DEVCONTAINER_LIB}/config/k3s-registries.yaml:/etc/rancher/k3s/registries.yaml
+      - nxe-k3s-linuxkit-kheaders:/usr/src:ro
+      - /lib/modules/:/lib/modules:ro
+      - nxe-k3s-debugfs:/sys/kernel/debug:rw
     deploy:
       mode: replicated
       replicas: 3
@@ -104,11 +273,6 @@ services:
         reservations:
           cpus: '0.50'
           memory: 256M
-  nxe-k3s-registry:
-    image: "registry:2"
-    ports:
-      - 5443:5000
-
 volumes:
   nxe-config:
   nxe-cache-angular:
@@ -116,3 +280,9 @@ volumes:
   nxe-cache-node:
   nxe-cache-bin:
   nxe-k3s-data: {}
+  nxe-k3s-linuxkit-kheaders:
+  nxe-k3s-debugfs:
+    driver: local
+    driver_opts:
+      type: debugfs
+      device: debugfs

@@ -1,0 +1,7 @@
+FROM linuxkit/kernel:5.15.27 AS ksrc
+FROM linuxkit/kernel:5.15.27-builder AS build
+
+RUN apk add build-base
+
+COPY --from=ksrc /kernel-dev.tar /
+RUN tar xf kernel-dev.tar

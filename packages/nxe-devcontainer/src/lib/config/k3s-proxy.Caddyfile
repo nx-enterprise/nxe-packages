@@ -16,12 +16,12 @@
 #--------------------------------------------------------------------------
 
 # HTTP site block
-*.nxe.localhost:80 {
-  reverse_proxy nxe-k3s-server:30080
+*.local.gd:80 {
+  reverse_proxy 172.20.3.1:30080
 }
 
 # HTTPS site block
-*.nxe.localhost:443 {
+*.local.gd:443 {
 
   tls /root/certs/_wildcard.nxe.localhost.pem /root/certs/_wildcard.nxe.localhost-key.pem
 
@@ -33,7 +33,7 @@
   # Fallback for otherwise unhandled domains
 	handle {
 		reverse_proxy {
-			to nxe-k3s-server:30443
+			to 172.20.3.1:30443
       transport http {
         tls
         tls_insecure_skip_verify

@@ -24,17 +24,31 @@ nxe.images.build:
 cilium.route-list:
 	kubectl -n kube-system exec ds/cilium -- ip route list scope global
 
+docker.cleanup:
+	$(shell .devcontainer/scripts/devcontainer-cleanup.sh)
+
 docker.system.cleanup:
 	docker system prune -a -f
 	docker image prune -a
 	docker volume prune
 
 kube.whoami:
-	kubectl apply -f $(NXE_CONFIG)/k3s-whoami.yml
-	kubectl port-forward svc/whoami 8080:5678
+	kubectl apply -f $(NXE_CONFIG)/k3s-whoami.yaml
+	kubectl port-forward svc/whoami 8080:5678 -n nx-enterprise
 
-apt.ping:
-	sudo apt update && sudo apt install iputils-ping
+kube.io.services:
+	kubectl get services -o wide --all-namespaces
+
+kube.portainer:
+	kubectl port-forward svc/portainer 9443:9443 -n portainer
+
+kube.clean:
+	kubectl get nodes -o wide
+	kubectl delete nodes $(shell kubectl get nodes -n kube-system | grep NotReady | awk '{print $$1}' | paste -s -d' ' -)
+	kubectl get nodes -o wide
+
+apt.tools:
+	sudo apt update && sudo apt install iputils-ping inetutils-traceroute net-tools ipcalc bpfcc-tools -y
 
 # leave this at the end, and leave it blank as it will force the run of it
 FORCE:

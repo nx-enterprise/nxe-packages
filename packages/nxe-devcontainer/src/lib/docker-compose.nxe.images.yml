@@ -10,10 +10,13 @@ services:
         NXE_SHELL: ${NXE_SHELL}
         NXE_CONFIG: ${NXE_CONFIG}
         NXE_DAPR: ${NXE_DAPR}
-    environment:
-      DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
     env_file:
       - .env # load the rest of your environment variables
+  k3s-ebpf:
+    image: nx-enterprise/k3s-ebpf
+    build:
+      context: .
+      dockerfile: containers/Dockerfile.k3s-ebpf
   kitchen-sink:
     image: nx-enterprise/nxe-devcontainer:kitchen-sink
     build:
@@ -23,7 +26,5 @@ services:
         NXE_CONFIG: ${NXE_CONFIG}
         NXE_SCRIPTS: ${NXE_SCRIPTS}
         NXE_SHELL: ${NXE_SHELL}
-    environment:
-      DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
     env_file:
       - .env # load the rest of your environment variables

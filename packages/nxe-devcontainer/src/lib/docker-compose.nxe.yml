@@ -7,6 +7,13 @@ services:
     env_file:
       - ../.env # from the context of <workspace>/.devcontainer
     init: true
+    pid: host
+    privileged: true
+    networks:
+      default:
+        ipv4_address: 172.20.0.2
+      nxe-devnet-k3s:
+        ipv4_address: 172.20.2.2
     ulimits: # nx daemon likes to crawl a lot of files
       nproc: 65535
       nofile:
@@ -16,13 +23,11 @@ services:
       - ..:${NXE_WS}:cached # REMEMBER! this YML file merges with the .devcontainer/ subdirectory
       # Forwards the local Docker socket to the container.
       - /var/run/docker.sock:/var/run/docker-host.sock
-      - nxe-k3s-data:/var/lib/rancher/k3s
       - nxe-config:${NXE_WS_DEVCONTAINER}/persist # configuration we want to persist
       - nxe-cache-node:${NXE_WS}/node_modules # node modules
       - nxe-cache-angular:${NXE_WS}/.angular # angular build cache
       - nxe-cache-dist:${NXE_WS}/dist # app build output
       - nxe-cache-bin:${NXE_WS}/bin # binaries we downlaoded in our workspace
-
     # Overrides default command so things don't shut down after the process ends.
     entrypoint: /usr/local/share/docker-init.sh
     command: sleep infinity

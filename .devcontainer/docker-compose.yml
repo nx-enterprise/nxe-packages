@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile # by default, extend the base image
     environment:
-      DAPR_NETWORK: ${NXE_NETWORK} # necessary for docker-outside-of-docker
+      DAPR_NETWORK: ${NXE_DEVNET} # necessary for docker-outside-of-docker
     env_file:
       - ../.env # load the rest of your environment variables
     init: true

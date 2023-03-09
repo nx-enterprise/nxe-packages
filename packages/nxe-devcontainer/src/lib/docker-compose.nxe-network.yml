@@ -1,11 +1,20 @@
 version: '3.9'
 networks:
   default:
-    name: ${NXE_NETWORK}
+    name: ${NXE_DEVNET}
     driver: bridge
     ipam:
       driver: default
       config:
-      - subnet:  "240.0.0.0/4"
-        gateway: "240.0.0.1"
-        ip_range: "240.0.0.0/23"
+      - subnet:  "172.20.0.0/23"
+        ip_range: "172.20.0.0/24"
+        #gateway: "172.20.0.1"
+  # create a macvlan network for the container to use
+  nxe-devnet-k3s:
+    name: ${NXE_DEVNET_K3S}
+    driver: bridge
+    ipam:
+      config:
+      - subnet:  "172.20.2.0/23"
+        ip_range: "172.20.3.0/24"
+        #gateway: "172.20.0.1"
